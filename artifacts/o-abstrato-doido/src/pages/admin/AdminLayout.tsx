@@ -5,9 +5,9 @@ import { useQueryClient } from "@tanstack/react-query";
 import { ImageIcon, CalendarIcon, FileTextIcon, ExternalLink, LogOut } from "lucide-react";
 
 const navItems = [
-  { href: "/admin/obras", label: "Obras", icon: ImageIcon },
-  { href: "/admin/eventos", label: "Eventos", icon: CalendarIcon },
-  { href: "/admin/blog", label: "Blog", icon: FileTextIcon },
+  { href: "/odoido/obras", label: "Obras", icon: ImageIcon },
+  { href: "/odoido/eventos", label: "Eventos", icon: CalendarIcon },
+  { href: "/odoido/blog", label: "Blog", icon: FileTextIcon },
 ];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
@@ -22,7 +22,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (!isLoading && !me && error) {
-      setLocation("/admin/login");
+      setLocation("/odoido/login");
     }
   }, [isLoading, me, error, setLocation]);
 

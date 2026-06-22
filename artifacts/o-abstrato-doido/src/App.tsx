@@ -28,17 +28,11 @@ function Router() {
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:id" component={BlogPost} />
       <Route path="/sobre" component={Sobre} />
-      <Route path="/admin/login" component={Login} />
-      <Route path="/admin" component={() => {
-        const AdminRedirect = () => {
-          import("wouter").then(({ useLocation }) => {});
-          return <AdminLayout><ObrasAdmin /></AdminLayout>;
-        };
-        return <AdminLayout><ObrasAdmin /></AdminLayout>;
-      }} />
-      <Route path="/admin/obras" component={() => <AdminLayout><ObrasAdmin /></AdminLayout>} />
-      <Route path="/admin/eventos" component={() => <AdminLayout><EventosAdmin /></AdminLayout>} />
-      <Route path="/admin/blog" component={() => <AdminLayout><BlogAdmin /></AdminLayout>} />
+      <Route path="/odoido/login" component={Login} />
+      <Route path="/odoido" component={() => <AdminLayout><ObrasAdmin /></AdminLayout>} />
+      <Route path="/odoido/obras" component={() => <AdminLayout><ObrasAdmin /></AdminLayout>} />
+      <Route path="/odoido/eventos" component={() => <AdminLayout><EventosAdmin /></AdminLayout>} />
+      <Route path="/odoido/blog" component={() => <AdminLayout><BlogAdmin /></AdminLayout>} />
       <Route component={NotFound} />
     </Switch>
   );

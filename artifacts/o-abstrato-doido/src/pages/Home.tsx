@@ -47,7 +47,7 @@ export default function Home() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative h-screen min-h-[600px] flex items-end pb-20">
+      <section className="relative h-[50vh] min-h-[320px] flex items-end pb-12">
         <div
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${heroPng})` }}
@@ -76,12 +76,12 @@ export default function Home() {
       <section className="py-20 bg-[hsl(40,43%,96%)]">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1">
-            <p className="text-xs tracking-[0.3em] uppercase text-primary mb-4">Sobre o Artista</p>
-            <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-6">
-              Um espaço de expressão pura
-            </h2>
+            <p className="text-xs tracking-[0.3em] uppercase text-primary mb-6">Sobre o Artista</p>
+            <p className="text-muted-foreground leading-relaxed text-base mb-4">
+              Minhas obras são uma jornada pessoal em formas e sentimentos. A arte abstrata permite-me explorar o que as palavras não conseguem dizer — a emoção bruta, a cor como linguagem, o gesto como poesia.
+            </p>
             <p className="text-muted-foreground leading-relaxed text-base">
-              Bem-vindo ao meu espaço de expressão. Crio para transcender barreiras. Minhas obras são uma jornada pessoal em formas e sentimentos.
+              Cada tela é um diálogo entre o artista e o acaso, entre a intenção e a surpresa. É nesse espaço intermediário que O Abstrato Doido encontra a sua voz.
             </p>
             <Link
               href="/sobre"

@@ -37,9 +37,6 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Link href="/admin" className="text-xs tracking-widest uppercase text-muted-foreground hover:text-foreground transition-colors opacity-60">
-            Admin
-          </Link>
         </div>
 
         {/* Mobile hamburger */}
@@ -68,9 +65,6 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Link href="/admin" onClick={() => setOpen(false)} className="text-xs tracking-widest uppercase text-muted-foreground opacity-60">
-            Admin
-          </Link>
         </div>
       )}
     </nav>
