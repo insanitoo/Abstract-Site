@@ -6,13 +6,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 type StatusFilter = "todas" | "disponivel" | "vendido";
 
-const WHATSAPP = "351912345678";
+const WA = "244934959424";
 
-function buildWhatsAppUrl(titulo: string) {
+function buildWA(titulo: string) {
   const msg = encodeURIComponent(
     `Olá, vi no seu site que a obra "${titulo}" ainda está disponível... Gostaria de comprá-la.`
   );
-  return `https://wa.me/${WHATSAPP}?text=${msg}`;
+  return `https://wa.me/${WA}?text=${msg}`;
 }
 
 export default function Galeria() {
@@ -93,7 +93,7 @@ export default function Galeria() {
                       </span>
                       {obra.status === "disponivel" && (
                         <a
-                          href={buildWhatsAppUrl(obra.titulo)}
+                          href={buildWA(obra.titulo)}
                           target="_blank"
                           rel="noopener noreferrer"
                           data-testid={`button-interessado-${obra.id}`}

@@ -20,6 +20,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import { Pencil, Trash2, Plus } from "lucide-react";
+import ImageUpload from "@/components/ImageUpload";
 
 type Evento = {
   id: number;
@@ -91,7 +92,6 @@ export default function EventosAdmin() {
       imagemCapaUrl: values.imagemCapaUrl || undefined,
       linkInscricao: values.linkInscricao || undefined,
     };
-
     if (editing) {
       updateEvento.mutate({ id: editing.id, data }, {
         onSuccess: () => { queryClient.invalidateQueries({ queryKey: getListEventosQueryKey() }); setOpen(false); toast({ title: "Evento actualizado" }); },
@@ -114,11 +114,11 @@ export default function EventosAdmin() {
   }
 
   return (
-    <div className="p-8">
-      <div className="flex items-center justify-between mb-8">
+    <div className="p-4 md:p-8">
+      <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-semibold text-foreground">Gestão de Eventos</h1>
-          <p className="text-sm text-muted-foreground mt-0.5">{eventos?.length ?? 0} eventos no total</p>
+          <h1 className="text-xl font-semibold text-foreground">Eventos</h1>
+          <p className="text-sm text-muted-foreground mt-0.5">{eventos?.length ?? 0} no total</p>
         </div>
         <Button onClick={openCreate} data-testid="button-novo-evento" className="gap-2 rounded-none text-xs tracking-widest uppercase bg-foreground hover:bg-foreground/90">
           <Plus size={14} /> Novo Evento
@@ -128,32 +128,33 @@ export default function EventosAdmin() {
       {isLoading ? (
         <div className="space-y-3">{[...Array(3)].map((_, i) => <Skeleton key={i} className="h-16 w-full" />)}</div>
       ) : eventos && eventos.length > 0 ? (
-        <div className="border border-[hsl(40,10%,85%)] bg-white overflow-hidden">
-          <table className="w-full text-sm">
+        <div className="border border-[hsl(40,10%,85%)] bg-white overflow-x-auto">
+          <table className="w-full text-sm min-w-[360px]">
             <thead>
               <tr className="border-b border-[hsl(40,10%,85%)] bg-[hsl(40,43%,96%)]">
                 <th className="text-left px-4 py-3 text-xs tracking-widest uppercase text-muted-foreground font-normal">Nome</th>
-                <th className="text-left px-4 py-3 text-xs tracking-widest uppercase text-muted-foreground font-normal hidden md:table-cell">Local</th>
-                <th className="text-left px-4 py-3 text-xs tracking-widest uppercase text-muted-foreground font-normal">Data</th>
-                <th className="text-left px-4 py-3 text-xs tracking-widest uppercase text-muted-foreground font-normal">Tipo</th>
-                <th className="px-4 py-3" />
+                <th className="text-left px-4 py-3 text-xs tracking-widest uppercase text-muted-foreground font-normal hidden sm:table-cell">Data</th>
+                <th className="text-left px-4 py-3 text-xs tracking-widest uppercase text-muted-foreground font-normal hidden sm:table-cell">Tipo</th>
+                <th className="px-4 py-3 w-16" />
               </tr>
             </thead>
             <tbody>
               {eventos.map((evento) => (
                 <tr key={evento.id} className="border-b border-[hsl(40,10%,85%)] last:border-0" data-testid={`row-evento-${evento.id}`}>
-                  <td className="px-4 py-3 font-medium">{evento.nome}</td>
-                  <td className="px-4 py-3 text-muted-foreground hidden md:table-cell">{evento.local ?? "—"}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{evento.dataEvento}</td>
                   <td className="px-4 py-3">
+                    <p className="font-medium">{evento.nome}</p>
+                    {evento.local && <p className="text-xs text-muted-foreground">{evento.local}</p>}
+                  </td>
+                  <td className="px-4 py-3 text-muted-foreground hidden sm:table-cell">{evento.dataEvento}</td>
+                  <td className="px-4 py-3 hidden sm:table-cell">
                     <span className={`text-xs px-2 py-0.5 ${evento.tipo === "futuro" ? "bg-green-50 text-green-700 border border-green-200" : "bg-gray-50 text-gray-500 border border-gray-200"}`}>
                       {evento.tipo === "futuro" ? "Futuro" : "Passado"}
                     </span>
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2 justify-end">
-                      <button onClick={() => openEdit(evento)} data-testid={`button-edit-evento-${evento.id}`} className="p-1.5 text-muted-foreground hover:text-foreground transition-colors"><Pencil size={14} /></button>
-                      <button onClick={() => setDeleting(evento)} data-testid={`button-delete-evento-${evento.id}`} className="p-1.5 text-muted-foreground hover:text-red-600 transition-colors"><Trash2 size={14} /></button>
+                      <button onClick={() => openEdit(evento)} data-testid={`button-edit-evento-${evento.id}`} className="p-2 text-muted-foreground hover:text-foreground"><Pencil size={16} /></button>
+                      <button onClick={() => setDeleting(evento)} data-testid={`button-delete-evento-${evento.id}`} className="p-2 text-muted-foreground hover:text-red-600"><Trash2 size={16} /></button>
                     </div>
                   </td>
                 </tr>
@@ -169,43 +170,45 @@ export default function EventosAdmin() {
       )}
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-lg rounded-none">
+        <DialogContent className="max-w-lg rounded-none max-h-[90vh] overflow-y-auto mx-4">
           <DialogHeader>
             <DialogTitle className="font-serif font-normal text-xl">{editing ? "Editar Evento" : "Novo Evento"}</DialogTitle>
           </DialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
               <FormField control={form.control} name="nome" render={({ field }) => (
-                <FormItem><FormLabel className="text-xs tracking-widest uppercase">Nome *</FormLabel><FormControl><Input {...field} data-testid="input-nome" className="rounded-none" /></FormControl><FormMessage /></FormItem>
+                <FormItem><FormLabel className="text-xs tracking-widest uppercase">Nome *</FormLabel><FormControl><Input {...field} className="rounded-none" /></FormControl><FormMessage /></FormItem>
               )} />
-              <div className="grid grid-cols-2 gap-4">
+              <FormField control={form.control} name="imagemCapaUrl" render={({ field }) => (
+                <FormItem>
+                  <ImageUpload value={field.value} onChange={field.onChange} label="Imagem de Capa" />
+                  <FormMessage />
+                </FormItem>
+              )} />
+              <div className="grid grid-cols-2 gap-3">
                 <FormField control={form.control} name="local" render={({ field }) => (
-                  <FormItem><FormLabel className="text-xs tracking-widest uppercase">Local</FormLabel><FormControl><Input {...field} data-testid="input-local" className="rounded-none" /></FormControl><FormMessage /></FormItem>
+                  <FormItem><FormLabel className="text-xs tracking-widest uppercase">Local</FormLabel><FormControl><Input {...field} className="rounded-none" /></FormControl><FormMessage /></FormItem>
                 )} />
                 <FormField control={form.control} name="dataEvento" render={({ field }) => (
-                  <FormItem><FormLabel className="text-xs tracking-widest uppercase">Data *</FormLabel><FormControl><Input {...field} type="date" data-testid="input-dataEvento" className="rounded-none" /></FormControl><FormMessage /></FormItem>
+                  <FormItem><FormLabel className="text-xs tracking-widest uppercase">Data *</FormLabel><FormControl><Input {...field} type="date" className="rounded-none" /></FormControl><FormMessage /></FormItem>
                 )} />
               </div>
               <FormField control={form.control} name="tipo" render={({ field }) => (
                 <FormItem><FormLabel className="text-xs tracking-widest uppercase">Tipo *</FormLabel>
                   <Select onValueChange={field.onChange} value={field.value}>
-                    <FormControl><SelectTrigger className="rounded-none" data-testid="select-tipo"><SelectValue /></SelectTrigger></FormControl>
+                    <FormControl><SelectTrigger className="rounded-none"><SelectValue /></SelectTrigger></FormControl>
                     <SelectContent><SelectItem value="futuro">Futuro</SelectItem><SelectItem value="passado">Passado</SelectItem></SelectContent>
-                  </Select>
-                  <FormMessage /></FormItem>
+                  </Select><FormMessage /></FormItem>
               )} />
               <FormField control={form.control} name="descricao" render={({ field }) => (
-                <FormItem><FormLabel className="text-xs tracking-widest uppercase">Descrição</FormLabel><FormControl><Textarea {...field} className="rounded-none resize-none" rows={3} /></FormControl><FormMessage /></FormItem>
-              )} />
-              <FormField control={form.control} name="imagemCapaUrl" render={({ field }) => (
-                <FormItem><FormLabel className="text-xs tracking-widest uppercase">URL Imagem Capa</FormLabel><FormControl><Input {...field} placeholder="https://..." className="rounded-none" /></FormControl><FormMessage /></FormItem>
+                <FormItem><FormLabel className="text-xs tracking-widest uppercase">Descrição</FormLabel><FormControl><Textarea {...field} className="rounded-none resize-none" rows={2} /></FormControl><FormMessage /></FormItem>
               )} />
               <FormField control={form.control} name="linkInscricao" render={({ field }) => (
                 <FormItem><FormLabel className="text-xs tracking-widest uppercase">Link Inscrição</FormLabel><FormControl><Input {...field} placeholder="https://..." className="rounded-none" /></FormControl><FormMessage /></FormItem>
               )} />
-              <DialogFooter className="pt-2">
-                <Button type="button" variant="outline" onClick={() => setOpen(false)} className="rounded-none text-xs tracking-widest uppercase">Cancelar</Button>
-                <Button type="submit" disabled={createEvento.isPending || updateEvento.isPending} data-testid="button-submit-evento" className="rounded-none text-xs tracking-widest uppercase bg-foreground hover:bg-foreground/90">
+              <DialogFooter className="pt-2 flex-col sm:flex-row gap-2">
+                <Button type="button" variant="outline" onClick={() => setOpen(false)} className="rounded-none text-xs tracking-widest uppercase w-full sm:w-auto">Cancelar</Button>
+                <Button type="submit" disabled={createEvento.isPending || updateEvento.isPending} data-testid="button-submit-evento" className="rounded-none text-xs tracking-widest uppercase bg-foreground hover:bg-foreground/90 w-full sm:w-auto">
                   {editing ? "Actualizar" : "Criar"}
                 </Button>
               </DialogFooter>
@@ -215,7 +218,7 @@ export default function EventosAdmin() {
       </Dialog>
 
       <AlertDialog open={!!deleting} onOpenChange={(o) => !o && setDeleting(null)}>
-        <AlertDialogContent className="rounded-none">
+        <AlertDialogContent className="rounded-none mx-4">
           <AlertDialogHeader>
             <AlertDialogTitle className="font-serif font-normal">Remover Evento</AlertDialogTitle>
             <AlertDialogDescription>Tem a certeza que quer remover "{deleting?.nome}"?</AlertDialogDescription>

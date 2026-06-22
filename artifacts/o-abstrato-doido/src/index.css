@@ -78,7 +78,7 @@
   /* Borders */
   --border: 40 10% 85%;
   --input: 40 10% 85%;
-  --ring: 155 46% 33%;
+  --ring: 155 22% 40%;
 
   /* White cards */
   --card: 0 0% 100%;
@@ -90,8 +90,8 @@
   --popover-foreground: 0 0% 10%;
   --popover-border: 40 10% 90%;
 
-  /* Emerald Green: #2d7a5a -> 155 46% 33% */
-  --primary: 155 46% 33%;
+  /* Emerald Green muted: 155 22% 40% */
+  --primary: 155 22% 40%;
   --primary-foreground: 0 0% 100%;
 
   /* Warm secondary */
@@ -101,7 +101,7 @@
   --muted: 40 20% 92%;
   --muted-foreground: 40 5% 40%;
 
-  --accent: 155 46% 33%;
+  --accent: 155 22% 40%;
   --accent-foreground: 0 0% 100%;
 
   --destructive: 0 84% 60%;
@@ -158,20 +158,20 @@
   --foreground: 0 0% 10%;
   --border: 40 10% 85%;
   --input: 40 10% 85%;
-  --ring: 155 46% 33%;
+  --ring: 155 22% 40%;
   --card: 0 0% 100%;
   --card-foreground: 0 0% 10%;
   --card-border: 40 10% 90%;
   --popover: 0 0% 100%;
   --popover-foreground: 0 0% 10%;
   --popover-border: 40 10% 90%;
-  --primary: 155 46% 33%;
+  --primary: 155 22% 40%;
   --primary-foreground: 0 0% 100%;
   --secondary: 40 30% 90%;
   --secondary-foreground: 0 0% 10%;
   --muted: 40 20% 92%;
   --muted-foreground: 40 5% 40%;
-  --accent: 155 46% 33%;
+  --accent: 155 22% 40%;
   --accent-foreground: 0 0% 100%;
   --destructive: 0 84% 60%;
   --destructive-foreground: 0 0% 100%;

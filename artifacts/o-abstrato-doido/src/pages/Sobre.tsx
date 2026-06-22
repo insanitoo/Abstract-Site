@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import artistPng from "@assets/image_1782125622268.png";
+import artistPng from "@assets/artista.png";
 
 export default function Sobre() {
   return (
@@ -49,10 +49,10 @@ export default function Sobre() {
               Comecei a pintar na adolescência, movido pela necessidade de expressar aquilo que as palavras não alcançavam. Cresci a observar as cores das ruas, das pessoas, das memórias — e percebi que a arte abstrata era o único idioma suficientemente vasto para tudo isso.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Ao longo dos anos, expus em galerias em Portugal, Espanha e Brasil, participei em residências artísticas em Paris e desenvolvi uma linguagem visual própria — densa, cromática, e profundamente emocional.
+              Ao longo dos anos, expus em galerias em Angola, Portugal e Brasil, participei em residências artísticas e desenvolvi uma linguagem visual própria — densa, cromática, e profundamente emocional.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Hoje, trabalho a partir do meu atelier em Lisboa, criando obras de grande formato que desafiam o olhar e convidam à contemplação.
+              Hoje, trabalho a partir do meu atelier em Luanda, criando obras de grande formato que desafiam o olhar e convidam à contemplação.
             </p>
           </div>
         </section>
@@ -80,10 +80,10 @@ export default function Sobre() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="flex gap-6 items-start">
                 <div className="w-16 h-16 flex-shrink-0 bg-primary flex items-center justify-center">
-                  <span className="text-white font-serif text-xs text-center leading-tight px-1">Verde Esmeralda</span>
+                  <span className="text-white font-serif text-xs text-center leading-tight px-1">Verde</span>
                 </div>
                 <div>
-                  <h3 className="font-serif text-xl text-primary mb-2">Verde Esmeralda — Harmonia</h3>
+                  <h3 className="font-serif text-xl text-primary mb-2">Verde — Harmonia</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
                     O verde que atravessa grande parte das minhas obras representa a harmonia entre o artista e a natureza, entre o caos e a ordem. É a cor que ancora, que equilibra, que respira.
                   </p>
@@ -96,13 +96,13 @@ export default function Sobre() {
                 <div>
                   <h3 className="font-serif text-xl text-orange-600 mb-2">Laranja — Energia</h3>
                   <p className="text-muted-foreground text-sm leading-relaxed">
-                    O laranja irrompe nas telas como uma grito de vitalidade. É a cor da ação, do desejo, da transformação. Quando o laranja aparece, é porque há algo urgente a dizer.
+                    O laranja irrompe nas telas como um grito de vitalidade. É a cor da ação, do desejo, da transformação. Quando o laranja aparece, é porque há algo urgente a dizer.
                   </p>
                 </div>
               </div>
               <div className="flex gap-6 items-start">
                 <div className="w-16 h-16 flex-shrink-0 bg-blue-900 flex items-center justify-center">
-                  <span className="text-white font-serif text-xs text-center leading-tight px-1">Azul Profundo</span>
+                  <span className="text-white font-serif text-xs text-center leading-tight px-1">Azul</span>
                 </div>
                 <div>
                   <h3 className="font-serif text-xl text-blue-900 mb-2">Azul Profundo — Silêncio</h3>

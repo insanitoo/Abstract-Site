@@ -4,8 +4,14 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
-import heroPng from "@assets/image_1782125581457.png";
-import artistPng from "@assets/image_1782125622268.png";
+import heroPng from "@assets/hero.png";
+import artistPng from "@assets/artista.png";
+
+const WA = "244934959424";
+
+function buildWA(msg: string) {
+  return `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
+}
 
 function ObraCard({ obra }: { obra: { id: number; titulo: string; imagemUrl?: string | null; status: string; dimensoes?: string | null } }) {
   return (
@@ -184,13 +190,24 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <Link
-                href="/agenda"
-                data-testid="button-ver-agenda"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white text-sm tracking-widest uppercase hover:bg-primary/90 transition-colors whitespace-nowrap"
-              >
-                Ver Agenda <ArrowRight size={14} />
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <a
+                  href={buildWA(`Olá, vi no seu site o evento "${proximoEvento.nome}" e gostaria de saber mais.`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-testid={`button-interessado-evento-${proximoEvento.id}`}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white text-sm tracking-widest uppercase hover:bg-primary/90 transition-colors whitespace-nowrap"
+                >
+                  Interessado
+                </a>
+                <Link
+                  href="/agenda"
+                  data-testid="button-ver-agenda"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 border border-primary text-primary text-sm tracking-widest uppercase hover:bg-primary/5 transition-colors whitespace-nowrap"
+                >
+                  Ver Agenda <ArrowRight size={14} />
+                </Link>
+              </div>
             </div>
           ) : (
             <div className="border border-border bg-white p-8 text-center">

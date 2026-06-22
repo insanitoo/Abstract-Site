@@ -2,7 +2,16 @@ import { useListEventos } from "@workspace/api-client-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Calendar, MapPin, ExternalLink } from "lucide-react";
+import { Calendar, MapPin } from "lucide-react";
+
+const WA = "244934959424";
+
+function buildWA(nome: string) {
+  const msg = encodeURIComponent(
+    `Olá, vi no site o evento "${nome}" e gostaria de saber mais / inscrever-me.`
+  );
+  return `https://wa.me/${WA}?text=${msg}`;
+}
 
 export default function Agenda() {
   const { data: eventos, isLoading } = useListEventos();
@@ -119,16 +128,16 @@ function EventoCard({
               <Calendar size={12} /> {evento.dataEvento}
             </p>
           </div>
-          <div className="flex items-center gap-3 mt-3">
-            {isFuture && evento.linkInscricao && (
+          <div className="flex items-center gap-3 mt-3 flex-wrap">
+            {isFuture && (
               <a
-                href={evento.linkInscricao}
+                href={buildWA(evento.nome)}
                 target="_blank"
                 rel="noopener noreferrer"
-                data-testid={`button-inscrever-${evento.id}`}
-                className="text-xs px-4 py-1.5 bg-primary text-white tracking-widest uppercase hover:bg-primary/90 transition-colors flex items-center gap-1"
+                data-testid={`button-interessado-evento-${evento.id}`}
+                className="text-xs px-4 py-2 bg-primary text-white tracking-widest uppercase hover:bg-primary/90 transition-colors"
               >
-                Inscrever-se <ExternalLink size={11} />
+                Interessado
               </a>
             )}
             {!isFuture && (
