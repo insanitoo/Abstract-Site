@@ -1,22 +1,28 @@
 openapi: 3.1.0
 info:
-  # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: O Abstrato Doido API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: obras
+    description: Artworks
+  - name: eventos
+    description: Events
+  - name: blog
+    description: Blog posts
+  - name: auth
+    description: Authentication
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +30,357 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /obras:
+    get:
+      operationId: listObras
+      tags: [obras]
+      summary: List artworks
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [disponivel, vendido]
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of artworks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Obra"
+    post:
+      operationId: createObra
+      tags: [obras]
+      summary: Create artwork
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ObraInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Obra"
+
+  /obras/{id}:
+    get:
+      operationId: getObra
+      tags: [obras]
+      summary: Get artwork
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Artwork
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Obra"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateObra
+      tags: [obras]
+      summary: Update artwork
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ObraUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Obra"
+        "404":
+          description: Not found
+    delete:
+      operationId: deleteObra
+      tags: [obras]
+      summary: Delete artwork
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+
+  /eventos:
+    get:
+      operationId: listEventos
+      tags: [eventos]
+      summary: List events
+      parameters:
+        - name: tipo
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [futuro, passado]
+      responses:
+        "200":
+          description: List of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Evento"
+    post:
+      operationId: createEvento
+      tags: [eventos]
+      summary: Create event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventoInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Evento"
+
+  /eventos/{id}:
+    get:
+      operationId: getEvento
+      tags: [eventos]
+      summary: Get event
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Event
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Evento"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateEvento
+      tags: [eventos]
+      summary: Update event
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EventoUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Evento"
+        "404":
+          description: Not found
+    delete:
+      operationId: deleteEvento
+      tags: [eventos]
+      summary: Delete event
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+
+  /blog:
+    get:
+      operationId: listBlog
+      tags: [blog]
+      summary: List blog posts
+      parameters:
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of blog posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BlogPost"
+    post:
+      operationId: createBlogPost
+      tags: [blog]
+      summary: Create blog post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BlogPostInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlogPost"
+
+  /blog/{id}:
+    get:
+      operationId: getBlogPost
+      tags: [blog]
+      summary: Get blog post
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Blog post
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlogPost"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateBlogPost
+      tags: [blog]
+      summary: Update blog post
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BlogPostUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BlogPost"
+        "404":
+          description: Not found
+    delete:
+      operationId: deleteBlogPost
+      tags: [blog]
+      summary: Delete blog post
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+
+  /auth/login:
+    post:
+      operationId: login
+      tags: [auth]
+      summary: Admin login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginInput"
+      responses:
+        "200":
+          description: Logged in
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthUser"
+        "401":
+          description: Invalid credentials
+
+  /auth/logout:
+    post:
+      operationId: logout
+      tags: [auth]
+      summary: Admin logout
+      responses:
+        "200":
+          description: Logged out
+
+  /auth/me:
+    get:
+      operationId: getMe
+      tags: [auth]
+      summary: Get current user
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthUser"
+        "401":
+          description: Unauthorized
+
+
 components:
   schemas:
     HealthStatus:
@@ -33,4 +390,182 @@ components:
           type: string
       required:
         - status
+
+    Obra:
+      type: object
+      required: [id, titulo, status, dataCriacao]
+      properties:
+        id:
+          type: integer
+        titulo:
+          type: string
+        descricao:
+          type: ["string", "null"]
+        dimensoes:
+          type: ["string", "null"]
+        preco:
+          type: ["string", "null"]
+        status:
+          type: string
+          enum: [disponivel, vendido]
+        imagemUrl:
+          type: ["string", "null"]
+        dataCriacao:
+          type: string
+
+    ObraInput:
+      type: object
+      required: [titulo, status]
+      properties:
+        titulo:
+          type: string
+        descricao:
+          type: string
+        dimensoes:
+          type: string
+        preco:
+          type: string
+        status:
+          type: string
+          enum: [disponivel, vendido]
+        imagemUrl:
+          type: string
+
+    ObraUpdate:
+      type: object
+      properties:
+        titulo:
+          type: string
+        descricao:
+          type: string
+        dimensoes:
+          type: string
+        preco:
+          type: string
+        status:
+          type: string
+          enum: [disponivel, vendido]
+        imagemUrl:
+          type: string
+
+    Evento:
+      type: object
+      required: [id, nome, tipo, dataEvento]
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        local:
+          type: ["string", "null"]
+        dataEvento:
+          type: string
+        tipo:
+          type: string
+          enum: [futuro, passado]
+        descricao:
+          type: ["string", "null"]
+        imagemCapaUrl:
+          type: ["string", "null"]
+        imagensAdicionais:
+          type: ["string", "null"]
+        linkInscricao:
+          type: ["string", "null"]
+
+    EventoInput:
+      type: object
+      required: [nome, tipo, dataEvento]
+      properties:
+        nome:
+          type: string
+        local:
+          type: string
+        dataEvento:
+          type: string
+        tipo:
+          type: string
+          enum: [futuro, passado]
+        descricao:
+          type: string
+        imagemCapaUrl:
+          type: string
+        imagensAdicionais:
+          type: string
+        linkInscricao:
+          type: string
+
+    EventoUpdate:
+      type: object
+      properties:
+        nome:
+          type: string
+        local:
+          type: string
+        dataEvento:
+          type: string
+        tipo:
+          type: string
+          enum: [futuro, passado]
+        descricao:
+          type: string
+        imagemCapaUrl:
+          type: string
+        imagensAdicionais:
+          type: string
+        linkInscricao:
+          type: string
+
+    BlogPost:
+      type: object
+      required: [id, titulo, conteudo, dataPublicacao]
+      properties:
+        id:
+          type: integer
+        titulo:
+          type: string
+        conteudo:
+          type: string
+        imagemCapaUrl:
+          type: ["string", "null"]
+        dataPublicacao:
+          type: string
+
+    BlogPostInput:
+      type: object
+      required: [titulo, conteudo]
+      properties:
+        titulo:
+          type: string
+        conteudo:
+          type: string
+        imagemCapaUrl:
+          type: string
+
+    BlogPostUpdate:
+      type: object
+      properties:
+        titulo:
+          type: string
+        conteudo:
+          type: string
+        imagemCapaUrl:
+          type: string
+
+    LoginInput:
+      type: object
+      required: [username, password]
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+
+    AuthUser:
+      type: object
+      required: [id, username]
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
 

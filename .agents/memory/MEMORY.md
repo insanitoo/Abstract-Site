@@ -1,0 +1,1 @@
+- [O Abstrato Doido stack](o-abstrato-doido-stack.md) — key decisions for the artist website: DB tables, API hooks, admin auth pattern.

@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "O Abstrato Doido"
+version = "1.0.0"
+id = "artifacts/o-abstrato-doido"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25110
+
+[services.development]
+run = "pnpm --filter @workspace/o-abstrato-doido run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/o-abstrato-doido", "run", "build" ]
+publicDir = "artifacts/o-abstrato-doido/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25110"
+BASE_PATH = "/"
