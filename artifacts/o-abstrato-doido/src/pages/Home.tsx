@@ -84,10 +84,10 @@ export default function Home() {
           <div className="order-2 md:order-1">
             <p className="text-xs tracking-[0.3em] uppercase text-primary mb-6">Sobre o Artista</p>
             <p className="text-muted-foreground leading-relaxed text-base mb-4">
-              Minhas obras são uma jornada pessoal em formas e sentimentos. A arte abstrata permite-me explorar o que as palavras não conseguem dizer — a emoção bruta, a cor como linguagem, o gesto como poesia.
-            </p>
+            Um miúdo de 19 anos que começou a pintar por curiosidade... Hoje
+            vive da própria arte.            </p>
             <p className="text-muted-foreground leading-relaxed text-base">
-              Cada tela é um diálogo entre o artista e o acaso, entre a intenção e a surpresa. É nesse espaço intermediário que O Abstrato Doido encontra a sua voz.
+            Não sei bem como aconteceu, mas sei que não aconteceu sozinho.
             </p>
             <Link
               href="/sobre"

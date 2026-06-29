@@ -3,7 +3,8 @@ import { useGetBlogPost, getGetBlogPostQueryKey } from "@workspace/api-client-re
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft } from "lucide-react"
+
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString("pt-PT", {
@@ -41,7 +42,8 @@ export default function BlogPost() {
                 <img
                   src={post.imagemCapaUrl}
                   alt={post.titulo}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full ob
+                  -º« ewq Wn6zaject-cover"
                 />
               </div>
             )}
