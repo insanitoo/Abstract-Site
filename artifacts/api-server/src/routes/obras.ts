@@ -24,6 +24,9 @@ router.get("/obras", async (req, res): Promise<void> => {
   if (query.data.status) {
     obras = obras.filter((o) => o.status === query.data.status);
   }
+  if (query.data.tamanho) {
+    obras = obras.filter((o) => o.tamanho === query.data.tamanho);
+  }
   if (query.data.limit) {
     obras = obras.slice(-query.data.limit).reverse();
   } else {
@@ -108,10 +111,14 @@ function serializeObra(obra: typeof obrasTable.$inferSelect) {
     id: obra.id,
     titulo: obra.titulo,
     descricao: obra.descricao,
+    tecnica: obra.tecnica,
     dimensoes: obra.dimensoes,
     preco: obra.preco,
     status: obra.status,
+    tamanho: obra.tamanho,
     imagemUrl: obra.imagemUrl,
+    imagemUrl2: obra.imagemUrl2,
+    imagemUrl3: obra.imagemUrl3,
     dataCriacao: obra.dataCriacao instanceof Date ? obra.dataCriacao.toISOString() : obra.dataCriacao,
   };
 }

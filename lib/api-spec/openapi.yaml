@@ -15,6 +15,8 @@ tags:
     description: Events
   - name: blog
     description: Blog posts
+  - name: cursos
+    description: Courses
   - name: auth
     description: Authentication
 paths:
@@ -43,6 +45,12 @@ paths:
           schema:
             type: string
             enum: [disponivel, vendido]
+        - name: tamanho
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [grande, media, pequena]
         - name: limit
           in: query
           required: false
@@ -335,6 +343,126 @@ paths:
         "404":
           description: Not found
 
+  /cursos:
+    get:
+      operationId: listCursos
+      tags: [cursos]
+      summary: List courses
+      responses:
+        "200":
+          description: List of courses
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Curso"
+    post:
+      operationId: createCurso
+      tags: [cursos]
+      summary: Create course
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CursoInput"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Curso"
+
+  /cursos/{id}:
+    get:
+      operationId: getCurso
+      tags: [cursos]
+      summary: Get course
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Course
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Curso"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateCurso
+      tags: [cursos]
+      summary: Update course
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CursoUpdate"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Curso"
+        "404":
+          description: Not found
+    delete:
+      operationId: deleteCurso
+      tags: [cursos]
+      summary: Delete course
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+        "404":
+          description: Not found
+
+  /cursos/{id}/verificar-chave:
+    post:
+      operationId: verificarChaveCurso
+      tags: [cursos]
+      summary: Verify course access key
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VerificarChaveInput"
+      responses:
+        "200":
+          description: Key verified
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VerificarChaveResponse"
+        "401":
+          description: Invalid key
+
   /auth/login:
     post:
       operationId: login
@@ -401,6 +529,8 @@ components:
           type: string
         descricao:
           type: ["string", "null"]
+        tecnica:
+          type: ["string", "null"]
         dimensoes:
           type: ["string", "null"]
         preco:
@@ -408,7 +538,14 @@ components:
         status:
           type: string
           enum: [disponivel, vendido]
+        tamanho:
+          type: ["string", "null"]
+          enum: [grande, media, pequena, null]
         imagemUrl:
+          type: ["string", "null"]
+        imagemUrl2:
+          type: ["string", "null"]
+        imagemUrl3:
           type: ["string", "null"]
         dataCriacao:
           type: string
@@ -421,6 +558,8 @@ components:
           type: string
         descricao:
           type: string
+        tecnica:
+          type: string
         dimensoes:
           type: string
         preco:
@@ -428,7 +567,14 @@ components:
         status:
           type: string
           enum: [disponivel, vendido]
+        tamanho:
+          type: string
+          enum: [grande, media, pequena]
         imagemUrl:
+          type: string
+        imagemUrl2:
+          type: string
+        imagemUrl3:
           type: string
 
     ObraUpdate:
@@ -438,6 +584,8 @@ components:
           type: string
         descricao:
           type: string
+        tecnica:
+          type: string
         dimensoes:
           type: string
         preco:
@@ -445,7 +593,14 @@ components:
         status:
           type: string
           enum: [disponivel, vendido]
+        tamanho:
+          type: string
+          enum: [grande, media, pequena]
         imagemUrl:
+          type: string
+        imagemUrl2:
+          type: string
+        imagemUrl3:
           type: string
 
     Evento:
@@ -551,6 +706,68 @@ components:
         imagemCapaUrl:
           type: string
 
+    Curso:
+      type: object
+      required: [id, nome, chaveAcesso, dataCriacao]
+      properties:
+        id:
+          type: integer
+        nome:
+          type: string
+        descricao:
+          type: ["string", "null"]
+        imagemCapaUrl:
+          type: ["string", "null"]
+        chaveAcesso:
+          type: string
+        aulas:
+          type: ["string", "null"]
+        dataCriacao:
+          type: string
+
+    CursoInput:
+      type: object
+      required: [nome, chaveAcesso]
+      properties:
+        nome:
+          type: string
+        descricao:
+          type: string
+        imagemCapaUrl:
+          type: string
+        chaveAcesso:
+          type: string
+        aulas:
+          type: string
+
+    CursoUpdate:
+      type: object
+      properties:
+        nome:
+          type: string
+        descricao:
+          type: string
+        imagemCapaUrl:
+          type: string
+        chaveAcesso:
+          type: string
+        aulas:
+          type: string
+
+    VerificarChaveInput:
+      type: object
+      required: [chave]
+      properties:
+        chave:
+          type: string
+
+    VerificarChaveResponse:
+      type: object
+      required: [valida]
+      properties:
+        valida:
+          type: boolean
+
     LoginInput:
       type: object
       required: [username, password]
@@ -568,4 +785,3 @@ components:
           type: integer
         username:
           type: string
-

@@ -2,12 +2,13 @@ import { ReactNode, useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useGetMe, useLogout, getGetMeQueryKey } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
-import { ImageIcon, CalendarIcon, FileTextIcon, ExternalLink, LogOut, Menu, X } from "lucide-react";
+import { ImageIcon, CalendarIcon, FileTextIcon, ExternalLink, LogOut, Menu, X, GraduationCap } from "lucide-react";
 
 const navItems = [
   { href: "/odoido/obras", label: "Obras", icon: ImageIcon },
   { href: "/odoido/eventos", label: "Eventos", icon: CalendarIcon },
   { href: "/odoido/blog", label: "Blog", icon: FileTextIcon },
+  { href: "/odoido/cursos", label: "Cursos", icon: GraduationCap },
 ];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
@@ -27,7 +28,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     }
   }, [isLoading, me, error, setLocation]);
 
-  // Close sidebar on route change (mobile)
   useEffect(() => {
     setSidebarOpen(false);
   }, [location]);
@@ -110,7 +110,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
 
   return (
     <div className="min-h-screen bg-[#fafafa] flex">
-      {/* Mobile overlay */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 md:hidden"
@@ -118,7 +117,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         />
       )}
 
-      {/* Sidebar — desktop: fixed column, mobile: drawer */}
       <aside
         className={`
           fixed md:static inset-y-0 left-0 z-50
@@ -130,9 +128,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <SidebarContent />
       </aside>
 
-      {/* Main content */}
       <div className="flex-1 min-w-0 flex flex-col">
-        {/* Mobile top bar */}
         <div className="md:hidden flex items-center gap-4 px-4 py-4 bg-white border-b border-[hsl(40,10%,85%)] sticky top-0 z-30">
           <button
             onClick={() => setSidebarOpen(true)}

@@ -26,20 +26,28 @@ type Obra = {
   id: number;
   titulo: string;
   descricao?: string | null;
+  tecnica?: string | null;
   dimensoes?: string | null;
   preco?: string | null;
   status: string;
+  tamanho?: string | null;
   imagemUrl?: string | null;
+  imagemUrl2?: string | null;
+  imagemUrl3?: string | null;
   dataCriacao: string;
 };
 
 const obraSchema = z.object({
   titulo: z.string().min(1, "Título obrigatório"),
   descricao: z.string().optional(),
+  tecnica: z.string().optional(),
   dimensoes: z.string().optional(),
   preco: z.string().optional(),
   status: z.enum(["disponivel", "vendido"]),
+  tamanho: z.enum(["grande", "media", "pequena", ""]).optional(),
   imagemUrl: z.string().optional(),
+  imagemUrl2: z.string().optional(),
+  imagemUrl3: z.string().optional(),
 });
 
 type ObraValues = z.infer<typeof obraSchema>;
@@ -56,14 +64,19 @@ export default function ObrasAdmin() {
   const updateObra = useUpdateObra();
   const deleteObra = useDeleteObra();
 
+  const emptyValues: ObraValues = {
+    titulo: "", descricao: "", tecnica: "", dimensoes: "", preco: "",
+    status: "disponivel", tamanho: "", imagemUrl: "", imagemUrl2: "", imagemUrl3: ""
+  };
+
   const form = useForm<ObraValues>({
     resolver: zodResolver(obraSchema),
-    defaultValues: { titulo: "", descricao: "", dimensoes: "", preco: "", status: "disponivel", imagemUrl: "" },
+    defaultValues: emptyValues,
   });
 
   function openCreate() {
     setEditing(null);
-    form.reset({ titulo: "", descricao: "", dimensoes: "", preco: "", status: "disponivel", imagemUrl: "" });
+    form.reset(emptyValues);
     setOpen(true);
   }
 
@@ -72,10 +85,14 @@ export default function ObrasAdmin() {
     form.reset({
       titulo: obra.titulo,
       descricao: obra.descricao ?? "",
+      tecnica: obra.tecnica ?? "",
       dimensoes: obra.dimensoes ?? "",
       preco: obra.preco ?? "",
       status: obra.status as "disponivel" | "vendido",
+      tamanho: (obra.tamanho ?? "") as "grande" | "media" | "pequena" | "",
       imagemUrl: obra.imagemUrl ?? "",
+      imagemUrl2: obra.imagemUrl2 ?? "",
+      imagemUrl3: obra.imagemUrl3 ?? "",
     });
     setOpen(true);
   }
@@ -84,10 +101,14 @@ export default function ObrasAdmin() {
     const data = {
       titulo: values.titulo,
       descricao: values.descricao || undefined,
+      tecnica: values.tecnica || undefined,
       dimensoes: values.dimensoes || undefined,
       preco: values.preco || undefined,
       status: values.status,
+      tamanho: (values.tamanho || undefined) as "grande" | "media" | "pequena" | undefined,
       imagemUrl: values.imagemUrl || undefined,
+      imagemUrl2: values.imagemUrl2 || undefined,
+      imagemUrl3: values.imagemUrl3 || undefined,
     };
 
     if (editing) {
@@ -127,11 +148,12 @@ export default function ObrasAdmin() {
         <div className="space-y-3">{[...Array(4)].map((_, i) => <Skeleton key={i} className="h-16 w-full" />)}</div>
       ) : obras && obras.length > 0 ? (
         <div className="border border-[hsl(40,10%,85%)] bg-white overflow-x-auto">
-          <table className="w-full text-sm min-w-[400px]">
+          <table className="w-full text-sm min-w-[500px]">
             <thead>
               <tr className="border-b border-[hsl(40,10%,85%)] bg-[hsl(40,43%,96%)]">
                 <th className="text-left px-4 py-3 text-xs tracking-widest uppercase text-muted-foreground font-normal w-14">Img</th>
                 <th className="text-left px-4 py-3 text-xs tracking-widest uppercase text-muted-foreground font-normal">Título</th>
+                <th className="text-left px-4 py-3 text-xs tracking-widest uppercase text-muted-foreground font-normal hidden sm:table-cell">Técnica</th>
                 <th className="text-left px-4 py-3 text-xs tracking-widest uppercase text-muted-foreground font-normal hidden sm:table-cell">Estado</th>
                 <th className="px-4 py-3 w-16" />
               </tr>
@@ -149,6 +171,9 @@ export default function ObrasAdmin() {
                   <td className="px-4 py-3">
                     <p className="font-medium">{obra.titulo}</p>
                     {obra.preco && <p className="text-xs text-muted-foreground">{obra.preco}</p>}
+                  </td>
+                  <td className="px-4 py-3 hidden sm:table-cell">
+                    <p className="text-xs text-muted-foreground">{obra.tecnica ?? "—"}</p>
                   </td>
                   <td className="px-4 py-3 hidden sm:table-cell">
                     <span className={`text-xs px-2 py-0.5 ${obra.status === "disponivel" ? "bg-green-50 text-green-700 border border-green-200" : "bg-gray-50 text-gray-500 border border-gray-200"}`}>
@@ -174,7 +199,7 @@ export default function ObrasAdmin() {
       )}
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-lg rounded-none max-h-[90vh] overflow-y-auto mx-4">
+        <DialogContent className="max-w-2xl rounded-none max-h-[90vh] overflow-y-auto mx-4">
           <DialogHeader>
             <DialogTitle className="font-serif font-normal text-xl">{editing ? "Editar Obra" : "Nova Obra"}</DialogTitle>
           </DialogHeader>
@@ -183,15 +208,38 @@ export default function ObrasAdmin() {
               <FormField control={form.control} name="titulo" render={({ field }) => (
                 <FormItem><FormLabel className="text-xs tracking-widest uppercase">Título *</FormLabel><FormControl><Input {...field} data-testid="input-titulo" className="rounded-none" /></FormControl><FormMessage /></FormItem>
               )} />
-              <FormField control={form.control} name="imagemUrl" render={({ field }) => (
-                <FormItem>
-                  <ImageUpload value={field.value} onChange={field.onChange} label="Foto da Obra" />
-                  <FormMessage />
-                </FormItem>
-              )} />
+
+              {/* Fotos */}
+              <div className="space-y-3">
+                <p className="text-xs tracking-widest uppercase font-medium">Fotos</p>
+                <FormField control={form.control} name="imagemUrl" render={({ field }) => (
+                  <FormItem>
+                    <ImageUpload value={field.value} onChange={field.onChange} label="Foto Principal" />
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={form.control} name="imagemUrl2" render={({ field }) => (
+                  <FormItem>
+                    <ImageUpload value={field.value} onChange={field.onChange} label="Foto 2 (opcional)" />
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={form.control} name="imagemUrl3" render={({ field }) => (
+                  <FormItem>
+                    <ImageUpload value={field.value} onChange={field.onChange} label="Foto 3 (opcional)" />
+                    <FormMessage />
+                  </FormItem>
+                )} />
+              </div>
+
               <FormField control={form.control} name="descricao" render={({ field }) => (
-                <FormItem><FormLabel className="text-xs tracking-widest uppercase">Descrição</FormLabel><FormControl><Textarea {...field} className="rounded-none resize-none" rows={2} /></FormControl><FormMessage /></FormItem>
+                <FormItem><FormLabel className="text-xs tracking-widest uppercase">Descrição</FormLabel><FormControl><Textarea {...field} className="rounded-none resize-none" rows={3} /></FormControl><FormMessage /></FormItem>
               )} />
+
+              <FormField control={form.control} name="tecnica" render={({ field }) => (
+                <FormItem><FormLabel className="text-xs tracking-widest uppercase">Técnica</FormLabel><FormControl><Input {...field} placeholder="ex: Acrílico sobre tela" className="rounded-none" /></FormControl><FormMessage /></FormItem>
+              )} />
+
               <div className="grid grid-cols-2 gap-3">
                 <FormField control={form.control} name="dimensoes" render={({ field }) => (
                   <FormItem><FormLabel className="text-xs tracking-widest uppercase">Dimensões</FormLabel><FormControl><Input {...field} placeholder="ex: 100x80cm" className="rounded-none" /></FormControl><FormMessage /></FormItem>
@@ -200,14 +248,31 @@ export default function ObrasAdmin() {
                   <FormItem><FormLabel className="text-xs tracking-widest uppercase">Preço</FormLabel><FormControl><Input {...field} placeholder="ex: 150.000 Kz" data-testid="input-preco" className="rounded-none" /></FormControl><FormMessage /></FormItem>
                 )} />
               </div>
-              <FormField control={form.control} name="status" render={({ field }) => (
-                <FormItem><FormLabel className="text-xs tracking-widest uppercase">Estado *</FormLabel>
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <FormControl><SelectTrigger className="rounded-none"><SelectValue /></SelectTrigger></FormControl>
-                    <SelectContent><SelectItem value="disponivel">Disponível</SelectItem><SelectItem value="vendido">Vendido</SelectItem></SelectContent>
-                  </Select>
-                  <FormMessage /></FormItem>
-              )} />
+
+              <div className="grid grid-cols-2 gap-3">
+                <FormField control={form.control} name="status" render={({ field }) => (
+                  <FormItem><FormLabel className="text-xs tracking-widest uppercase">Estado *</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl><SelectTrigger className="rounded-none"><SelectValue /></SelectTrigger></FormControl>
+                      <SelectContent><SelectItem value="disponivel">Disponível</SelectItem><SelectItem value="vendido">Vendido</SelectItem></SelectContent>
+                    </Select>
+                    <FormMessage /></FormItem>
+                )} />
+                <FormField control={form.control} name="tamanho" render={({ field }) => (
+                  <FormItem><FormLabel className="text-xs tracking-widest uppercase">Tamanho</FormLabel>
+                    <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                      <FormControl><SelectTrigger className="rounded-none"><SelectValue placeholder="Sem categoria" /></SelectTrigger></FormControl>
+                      <SelectContent>
+                        <SelectItem value="">Sem categoria</SelectItem>
+                        <SelectItem value="grande">Grande</SelectItem>
+                        <SelectItem value="media">Média</SelectItem>
+                        <SelectItem value="pequena">Pequena</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage /></FormItem>
+                )} />
+              </div>
+
               <DialogFooter className="pt-2 flex-col sm:flex-row gap-2">
                 <Button type="button" variant="outline" onClick={() => setOpen(false)} className="rounded-none text-xs tracking-widest uppercase w-full sm:w-auto">Cancelar</Button>
                 <Button type="submit" disabled={createObra.isPending || updateObra.isPending} data-testid="button-submit-obra" className="rounded-none text-xs tracking-widest uppercase bg-foreground hover:bg-foreground/90 w-full sm:w-auto">

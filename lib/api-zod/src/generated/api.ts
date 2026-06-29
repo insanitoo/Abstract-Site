@@ -21,6 +21,7 @@ export const HealthCheckResponse = zod.object({
  */
 export const ListObrasQueryParams = zod.object({
   "status": zod.enum(['disponivel', 'vendido']).optional(),
+  "tamanho": zod.enum(['grande', 'media', 'pequena']).optional(),
   "limit": zod.coerce.number().optional()
 })
 
@@ -28,10 +29,14 @@ export const ListObrasResponseItem = zod.object({
   "id": zod.number(),
   "titulo": zod.string(),
   "descricao": zod.string().nullish(),
+  "tecnica": zod.string().nullish(),
   "dimensoes": zod.string().nullish(),
   "preco": zod.string().nullish(),
   "status": zod.enum(['disponivel', 'vendido']),
+  "tamanho": zod.enum(['grande', 'media', 'pequena']).nullish(),
   "imagemUrl": zod.string().nullish(),
+  "imagemUrl2": zod.string().nullish(),
+  "imagemUrl3": zod.string().nullish(),
   "dataCriacao": zod.string()
 })
 export const ListObrasResponse = zod.array(ListObrasResponseItem)
@@ -43,10 +48,14 @@ export const ListObrasResponse = zod.array(ListObrasResponseItem)
 export const CreateObraBody = zod.object({
   "titulo": zod.string(),
   "descricao": zod.string().optional(),
+  "tecnica": zod.string().optional(),
   "dimensoes": zod.string().optional(),
   "preco": zod.string().optional(),
   "status": zod.enum(['disponivel', 'vendido']),
-  "imagemUrl": zod.string().optional()
+  "tamanho": zod.enum(['grande', 'media', 'pequena']).optional(),
+  "imagemUrl": zod.string().optional(),
+  "imagemUrl2": zod.string().optional(),
+  "imagemUrl3": zod.string().optional()
 })
 
 
@@ -61,10 +70,14 @@ export const GetObraResponse = zod.object({
   "id": zod.number(),
   "titulo": zod.string(),
   "descricao": zod.string().nullish(),
+  "tecnica": zod.string().nullish(),
   "dimensoes": zod.string().nullish(),
   "preco": zod.string().nullish(),
   "status": zod.enum(['disponivel', 'vendido']),
+  "tamanho": zod.enum(['grande', 'media', 'pequena']).nullish(),
   "imagemUrl": zod.string().nullish(),
+  "imagemUrl2": zod.string().nullish(),
+  "imagemUrl3": zod.string().nullish(),
   "dataCriacao": zod.string()
 })
 
@@ -79,20 +92,28 @@ export const UpdateObraParams = zod.object({
 export const UpdateObraBody = zod.object({
   "titulo": zod.string().optional(),
   "descricao": zod.string().optional(),
+  "tecnica": zod.string().optional(),
   "dimensoes": zod.string().optional(),
   "preco": zod.string().optional(),
   "status": zod.enum(['disponivel', 'vendido']).optional(),
-  "imagemUrl": zod.string().optional()
+  "tamanho": zod.enum(['grande', 'media', 'pequena']).optional(),
+  "imagemUrl": zod.string().optional(),
+  "imagemUrl2": zod.string().optional(),
+  "imagemUrl3": zod.string().optional()
 })
 
 export const UpdateObraResponse = zod.object({
   "id": zod.number(),
   "titulo": zod.string(),
   "descricao": zod.string().nullish(),
+  "tecnica": zod.string().nullish(),
   "dimensoes": zod.string().nullish(),
   "preco": zod.string().nullish(),
   "status": zod.enum(['disponivel', 'vendido']),
+  "tamanho": zod.enum(['grande', 'media', 'pequena']).nullish(),
   "imagemUrl": zod.string().nullish(),
+  "imagemUrl2": zod.string().nullish(),
+  "imagemUrl3": zod.string().nullish(),
   "dataCriacao": zod.string()
 })
 
@@ -274,6 +295,101 @@ export const DeleteBlogPostParams = zod.object({
 
 
 /**
+ * @summary List courses
+ */
+export const ListCursosResponseItem = zod.object({
+  "id": zod.number(),
+  "nome": zod.string(),
+  "descricao": zod.string().nullish(),
+  "imagemCapaUrl": zod.string().nullish(),
+  "chaveAcesso": zod.string(),
+  "aulas": zod.string().nullish(),
+  "dataCriacao": zod.string()
+})
+export const ListCursosResponse = zod.array(ListCursosResponseItem)
+
+
+/**
+ * @summary Create course
+ */
+export const CreateCursoBody = zod.object({
+  "nome": zod.string(),
+  "descricao": zod.string().optional(),
+  "imagemCapaUrl": zod.string().optional(),
+  "chaveAcesso": zod.string(),
+  "aulas": zod.string().optional()
+})
+
+
+/**
+ * @summary Get course
+ */
+export const GetCursoParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const GetCursoResponse = zod.object({
+  "id": zod.number(),
+  "nome": zod.string(),
+  "descricao": zod.string().nullish(),
+  "imagemCapaUrl": zod.string().nullish(),
+  "chaveAcesso": zod.string(),
+  "aulas": zod.string().nullish(),
+  "dataCriacao": zod.string()
+})
+
+
+/**
+ * @summary Update course
+ */
+export const UpdateCursoParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const UpdateCursoBody = zod.object({
+  "nome": zod.string().optional(),
+  "descricao": zod.string().optional(),
+  "imagemCapaUrl": zod.string().optional(),
+  "chaveAcesso": zod.string().optional(),
+  "aulas": zod.string().optional()
+})
+
+export const UpdateCursoResponse = zod.object({
+  "id": zod.number(),
+  "nome": zod.string(),
+  "descricao": zod.string().nullish(),
+  "imagemCapaUrl": zod.string().nullish(),
+  "chaveAcesso": zod.string(),
+  "aulas": zod.string().nullish(),
+  "dataCriacao": zod.string()
+})
+
+
+/**
+ * @summary Delete course
+ */
+export const DeleteCursoParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+
+/**
+ * @summary Verify course access key
+ */
+export const VerificarChaveCursoParams = zod.object({
+  "id": zod.coerce.number()
+})
+
+export const VerificarChaveCursoBody = zod.object({
+  "chave": zod.string()
+})
+
+export const VerificarChaveCursoResponse = zod.object({
+  "valida": zod.boolean()
+})
+
+
+/**
  * @summary Admin login
  */
 export const LoginBody = zod.object({
@@ -294,5 +410,3 @@ export const GetMeResponse = zod.object({
   "id": zod.number(),
   "username": zod.string()
 })
-
-

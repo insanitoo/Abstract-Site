@@ -16,12 +16,12 @@ export default function Footer() {
           <h3 className="font-serif text-xl mb-4 text-white/90">Contactos</h3>
           <div className="flex flex-col gap-3">
             <a
-              href="mailto:geral@oabstratodoido.pt"
+              href="mailto:diolenyintya@gmail.com"
               className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-sm"
               data-testid="link-email"
             >
               <Mail size={16} />
-              geral@oabstratodoido.pt
+              diolenyintya@gmail.com
             </a>
             <a
               href="https://wa.me/244934959424"

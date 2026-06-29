@@ -17,18 +17,35 @@ export const ObraStatus = {
   vendido: 'vendido',
 } as const;
 
+export type ObraTamanho = typeof ObraTamanho[keyof typeof ObraTamanho];
+
+
+export const ObraTamanho = {
+  grande: 'grande',
+  media: 'media',
+  pequena: 'pequena',
+} as const;
+
 export interface Obra {
   id: number;
   titulo: string;
   /** @nullable */
   descricao?: string | null;
   /** @nullable */
+  tecnica?: string | null;
+  /** @nullable */
   dimensoes?: string | null;
   /** @nullable */
   preco?: string | null;
   status: ObraStatus;
   /** @nullable */
+  tamanho?: ObraTamanho | null;
+  /** @nullable */
   imagemUrl?: string | null;
+  /** @nullable */
+  imagemUrl2?: string | null;
+  /** @nullable */
+  imagemUrl3?: string | null;
   dataCriacao: string;
 }
 
@@ -40,13 +57,26 @@ export const ObraInputStatus = {
   vendido: 'vendido',
 } as const;
 
+export type ObraInputTamanho = typeof ObraInputTamanho[keyof typeof ObraInputTamanho];
+
+
+export const ObraInputTamanho = {
+  grande: 'grande',
+  media: 'media',
+  pequena: 'pequena',
+} as const;
+
 export interface ObraInput {
   titulo: string;
   descricao?: string;
+  tecnica?: string;
   dimensoes?: string;
   preco?: string;
   status: ObraInputStatus;
+  tamanho?: ObraInputTamanho;
   imagemUrl?: string;
+  imagemUrl2?: string;
+  imagemUrl3?: string;
 }
 
 export type ObraUpdateStatus = typeof ObraUpdateStatus[keyof typeof ObraUpdateStatus];
@@ -57,13 +87,26 @@ export const ObraUpdateStatus = {
   vendido: 'vendido',
 } as const;
 
+export type ObraUpdateTamanho = typeof ObraUpdateTamanho[keyof typeof ObraUpdateTamanho];
+
+
+export const ObraUpdateTamanho = {
+  grande: 'grande',
+  media: 'media',
+  pequena: 'pequena',
+} as const;
+
 export interface ObraUpdate {
   titulo?: string;
   descricao?: string;
+  tecnica?: string;
   dimensoes?: string;
   preco?: string;
   status?: ObraUpdateStatus;
+  tamanho?: ObraUpdateTamanho;
   imagemUrl?: string;
+  imagemUrl2?: string;
+  imagemUrl3?: string;
 }
 
 export type EventoTipo = typeof EventoTipo[keyof typeof EventoTipo];
@@ -150,6 +193,43 @@ export interface BlogPostUpdate {
   imagemCapaUrl?: string;
 }
 
+export interface Curso {
+  id: number;
+  nome: string;
+  /** @nullable */
+  descricao?: string | null;
+  /** @nullable */
+  imagemCapaUrl?: string | null;
+  chaveAcesso: string;
+  /** @nullable */
+  aulas?: string | null;
+  dataCriacao: string;
+}
+
+export interface CursoInput {
+  nome: string;
+  descricao?: string;
+  imagemCapaUrl?: string;
+  chaveAcesso: string;
+  aulas?: string;
+}
+
+export interface CursoUpdate {
+  nome?: string;
+  descricao?: string;
+  imagemCapaUrl?: string;
+  chaveAcesso?: string;
+  aulas?: string;
+}
+
+export interface VerificarChaveInput {
+  chave: string;
+}
+
+export interface VerificarChaveResponse {
+  valida: boolean;
+}
+
 export interface LoginInput {
   username: string;
   password: string;
@@ -162,6 +242,7 @@ export interface AuthUser {
 
 export type ListObrasParams = {
 status?: ListObrasStatus;
+tamanho?: ListObrasTamanho;
 limit?: number;
 };
 
@@ -171,6 +252,15 @@ export type ListObrasStatus = typeof ListObrasStatus[keyof typeof ListObrasStatu
 export const ListObrasStatus = {
   disponivel: 'disponivel',
   vendido: 'vendido',
+} as const;
+
+export type ListObrasTamanho = typeof ListObrasTamanho[keyof typeof ListObrasTamanho];
+
+
+export const ListObrasTamanho = {
+  grande: 'grande',
+  media: 'media',
+  pequena: 'pequena',
 } as const;
 
 export type ListEventosParams = {
@@ -188,4 +278,3 @@ export const ListEventosTipo = {
 export type ListBlogParams = {
 limit?: number;
 };
-

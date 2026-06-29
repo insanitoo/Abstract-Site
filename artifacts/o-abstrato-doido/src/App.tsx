@@ -9,11 +9,13 @@ import Agenda from "@/pages/Agenda";
 import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import Sobre from "@/pages/Sobre";
+import Cursos from "@/pages/Cursos";
 import Login from "@/pages/admin/Login";
 import AdminLayout from "@/pages/admin/AdminLayout";
 import ObrasAdmin from "@/pages/admin/ObrasAdmin";
 import EventosAdmin from "@/pages/admin/EventosAdmin";
 import BlogAdmin from "@/pages/admin/BlogAdmin";
+import CursosAdmin from "@/pages/admin/CursosAdmin";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { retry: 1 } },
@@ -28,11 +30,13 @@ function Router() {
       <Route path="/blog" component={Blog} />
       <Route path="/blog/:id" component={BlogPost} />
       <Route path="/sobre" component={Sobre} />
+      <Route path="/cursos" component={Cursos} />
       <Route path="/odoido/login" component={Login} />
       <Route path="/odoido" component={() => <AdminLayout><ObrasAdmin /></AdminLayout>} />
       <Route path="/odoido/obras" component={() => <AdminLayout><ObrasAdmin /></AdminLayout>} />
       <Route path="/odoido/eventos" component={() => <AdminLayout><EventosAdmin /></AdminLayout>} />
       <Route path="/odoido/blog" component={() => <AdminLayout><BlogAdmin /></AdminLayout>} />
+      <Route path="/odoido/cursos" component={() => <AdminLayout><CursosAdmin /></AdminLayout>} />
       <Route component={NotFound} />
     </Switch>
   );
