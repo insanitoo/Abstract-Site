@@ -250,9 +250,7 @@ export default function Cursos() {
           ) : (
             /* Fallback elegante */
             <div className="py-32 text-center">
-              <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
-                <GraduationCap size={36} className="text-primary/50" />
-              </div>
+              
               <h2 className="font-serif text-2xl text-foreground mb-2">Cursos disponíveis em breve</h2>
               <p className="text-muted-foreground text-sm max-w-md mx-auto">
                 Estamos a preparar conteúdo especial para ti. Volta em breve para saber mais.

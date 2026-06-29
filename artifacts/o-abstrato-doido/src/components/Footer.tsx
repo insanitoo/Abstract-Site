@@ -63,9 +63,6 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/20 py-4 text-center text-white/50 text-xs">
-        © {new Date().getFullYear()} O Abstrato Doido. Todos os direitos reservados.
-      </div>
     </footer>
   );
 }

@@ -53,18 +53,18 @@ export default function Home() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative h-[50vh] min-h-[320px] flex items-end pb-12">
+      <section className="relative h-[60vh] md:h-[88vh] min-h-[420px] flex items-end pb-16 md:pb-24">
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-top"
           style={{ backgroundImage: `url(${heroPng})` }}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
         <div className="relative z-10 max-w-6xl mx-auto px-6 w-full">
           <p className="text-white/70 text-xs tracking-[0.3em] uppercase mb-4">O Abstrato Doido</p>
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white leading-tight max-w-2xl">
+          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white leading-tight max-w-2xl drop-shadow-lg">
             A cor que transcende barreiras
           </h1>
-          <p className="text-white/80 text-lg mt-4 max-w-md">
+          <p className="text-white/90 text-lg mt-4 max-w-md drop-shadow">
             Obras únicas que tocam a alma
           </p>
           <Link
