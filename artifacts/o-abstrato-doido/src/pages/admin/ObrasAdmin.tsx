@@ -44,7 +44,7 @@ const obraSchema = z.object({
   dimensoes: z.string().optional(),
   preco: z.string().optional(),
   status: z.enum(["disponivel", "vendido"]),
-  tamanho: z.enum(["grande", "media", "pequena", ""]).optional(),
+  tamanho: z.enum(["grande", "media", "pequena", "none"]).optional(),
   imagemUrl: z.string().optional(),
   imagemUrl2: z.string().optional(),
   imagemUrl3: z.string().optional(),
@@ -66,7 +66,7 @@ export default function ObrasAdmin() {
 
   const emptyValues: ObraValues = {
     titulo: "", descricao: "", tecnica: "", dimensoes: "", preco: "",
-    status: "disponivel", tamanho: "", imagemUrl: "", imagemUrl2: "", imagemUrl3: ""
+    status: "disponivel", tamanho: "none", imagemUrl: "", imagemUrl2: "", imagemUrl3: ""
   };
 
   const form = useForm<ObraValues>({
@@ -89,7 +89,7 @@ export default function ObrasAdmin() {
       dimensoes: obra.dimensoes ?? "",
       preco: obra.preco ?? "",
       status: obra.status as "disponivel" | "vendido",
-      tamanho: (obra.tamanho ?? "") as "grande" | "media" | "pequena" | "",
+      tamanho: (obra.tamanho ?? "none") as "grande" | "media" | "pequena" | "none",
       imagemUrl: obra.imagemUrl ?? "",
       imagemUrl2: obra.imagemUrl2 ?? "",
       imagemUrl3: obra.imagemUrl3 ?? "",
@@ -105,7 +105,7 @@ export default function ObrasAdmin() {
       dimensoes: values.dimensoes || undefined,
       preco: values.preco || undefined,
       status: values.status,
-      tamanho: (values.tamanho || undefined) as "grande" | "media" | "pequena" | undefined,
+      tamanho: (values.tamanho && values.tamanho !== "none" ? values.tamanho : undefined) as "grande" | "media" | "pequena" | undefined,
       imagemUrl: values.imagemUrl || undefined,
       imagemUrl2: values.imagemUrl2 || undefined,
       imagemUrl3: values.imagemUrl3 || undefined,
@@ -260,10 +260,10 @@ export default function ObrasAdmin() {
                 )} />
                 <FormField control={form.control} name="tamanho" render={({ field }) => (
                   <FormItem><FormLabel className="text-xs tracking-widest uppercase">Tamanho</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                    <Select onValueChange={field.onChange} value={field.value ?? "none"}>
                       <FormControl><SelectTrigger className="rounded-none"><SelectValue placeholder="Sem categoria" /></SelectTrigger></FormControl>
                       <SelectContent>
-                        <SelectItem value="">Sem categoria</SelectItem>
+                        <SelectItem value="none">Sem categoria</SelectItem>
                         <SelectItem value="grande">Grande</SelectItem>
                         <SelectItem value="media">Média</SelectItem>
                         <SelectItem value="pequena">Pequena</SelectItem>
