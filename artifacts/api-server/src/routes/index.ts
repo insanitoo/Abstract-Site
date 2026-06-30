@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router, type IRouter, type Request, type Response } from "express";
 import healthRouter from "./health";
 import obrasRouter from "./obras";
 import eventosRouter from "./eventos";
@@ -8,6 +8,10 @@ import uploadRouter from "./upload";
 import cursosRouter from "./cursos";
 
 const router: IRouter = Router();
+
+router.get("/ping", (_req: Request, res: Response) => {
+  res.status(200).send("OK");
+});
 
 router.use(healthRouter);
 router.use(authRouter);
