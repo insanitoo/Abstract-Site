@@ -1,6 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import artistPng from "@assets/artista.png";
+import artistPng from "@assets/image_1782859145516.png";
+import artistaisPng from "@assets/artista.png";
+import artistais2Png from "@assets/image_1782860231531.png";
 
 export default function Sobre() {
   return (
@@ -190,12 +192,12 @@ export default function Sobre() {
                 className="w-full aspect-square object-cover"
               />
               <img
-                src={artistPng}
+                src={artistaisPng}
                 alt="Atelier 2"
                 className="w-full aspect-square object-cover md:translate-y-8"
               />
               <img
-                src={artistPng}
+                src={artistais2Png}
                 alt="Atelier 3"
                 className="w-full aspect-square object-cover"
               />

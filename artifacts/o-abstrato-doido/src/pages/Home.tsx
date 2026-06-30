@@ -7,6 +7,7 @@ import { Calendar, MapPin, ArrowRight } from "lucide-react";
 import heroPng from "@assets/hero.png";
 import artistPng from "@assets/artista.png";
 
+
 const WA = "244934959424";
 
 function buildWA(msg: string) {
@@ -158,7 +159,7 @@ export default function Home() {
       <section className="py-20 bg-[hsl(40,43%,96%)]">
         <div className="max-w-6xl mx-auto px-6">
           <p className="text-xs tracking-[0.3em] uppercase text-primary mb-4">Agenda</p>
-          <h2 className="font-serif text-3xl text-foreground mb-8">Próximo Evento</h2>
+          <h2 className="font-serif text-3xl text-foreground mb-8"></h2>
 
           {eventosLoading ? (
             <div className="border border-border p-8">
