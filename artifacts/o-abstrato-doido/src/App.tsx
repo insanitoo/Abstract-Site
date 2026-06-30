@@ -18,7 +18,14 @@ import BlogAdmin from "@/pages/admin/BlogAdmin";
 import CursosAdmin from "@/pages/admin/CursosAdmin";
 
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { retry: 1 } },
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+      staleTime: 5 * 60 * 1000,
+    },
+  },
 });
 
 function Router() {
