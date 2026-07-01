@@ -49,7 +49,7 @@ function EventoModal({ evento, onClose }: { evento: EventoType; onClose: () => v
     <DialogContent className="max-w-2xl rounded-none p-0 overflow-hidden max-h-[92vh] flex flex-col">
       <button
         onClick={onClose}
-        className="absolute top-3 right-3 z-10 p-1 bg-white/80 hover:bg-white rounded-full text-foreground"
+        className="absolute top-6 right-3 z-10 p-1 bg-white/80 hover:bg-white rounded-full text-foreground"
         aria-label="Fechar"
       >
         <X size={18} />
