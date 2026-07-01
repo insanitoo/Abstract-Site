@@ -44,7 +44,7 @@ const obraSchema = z.object({
   dimensoes: z.string().optional(),
   preco: z.string().optional(),
   status: z.enum(["disponivel", "vendido"]),
-  tamanho: z.enum(["grande", "media", "pequena", "none"]).optional(),
+  tamanho: z.enum(["grande", "pequena", "none"]).optional(),
   imagemUrl: z.string().optional(),
   imagemUrl2: z.string().optional(),
   imagemUrl3: z.string().optional(),
@@ -89,7 +89,7 @@ export default function ObrasAdmin() {
       dimensoes: obra.dimensoes ?? "",
       preco: obra.preco ?? "",
       status: obra.status as "disponivel" | "vendido",
-      tamanho: (obra.tamanho ?? "none") as "grande" | "media" | "pequena" | "none",
+      tamanho: (obra.tamanho === "media" ? "none" : (obra.tamanho ?? "none")) as "grande" | "pequena" | "none",
       imagemUrl: obra.imagemUrl ?? "",
       imagemUrl2: obra.imagemUrl2 ?? "",
       imagemUrl3: obra.imagemUrl3 ?? "",
@@ -105,7 +105,7 @@ export default function ObrasAdmin() {
       dimensoes: values.dimensoes || undefined,
       preco: values.preco || undefined,
       status: values.status,
-      tamanho: (values.tamanho && values.tamanho !== "none" ? values.tamanho : undefined) as "grande" | "media" | "pequena" | undefined,
+      tamanho: (values.tamanho && values.tamanho !== "none" ? values.tamanho : undefined) as "grande" | "pequena" | undefined,
       imagemUrl: values.imagemUrl || undefined,
       imagemUrl2: values.imagemUrl2 || undefined,
       imagemUrl3: values.imagemUrl3 || undefined,
@@ -265,7 +265,6 @@ export default function ObrasAdmin() {
                       <SelectContent>
                         <SelectItem value="none">Sem categoria</SelectItem>
                         <SelectItem value="grande">Grande</SelectItem>
-                        <SelectItem value="media">Média</SelectItem>
                         <SelectItem value="pequena">Pequena</SelectItem>
                       </SelectContent>
                     </Select>

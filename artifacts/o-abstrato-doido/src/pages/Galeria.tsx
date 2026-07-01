@@ -8,7 +8,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 type StatusFilter = "todas" | "disponivel" | "vendido";
-type TamanhoFilter = "todos" | "grande" | "media" | "pequena";
+type TamanhoFilter = "todos" | "grande" | "pequena";
 
 const WA = "244934959424";
 
@@ -111,7 +111,7 @@ function ObraModal({ obra, onClose }: { obra: Obra; onClose: () => void }) {
           <div>
             <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-1">
               {obra.status === "disponivel" ? "Disponível" : "Vendida"}
-              {obra.tamanho && ` · ${obra.tamanho === "grande" ? "Grande" : obra.tamanho === "media" ? "Média" : "Pequena"}`}
+              {obra.tamanho && obra.tamanho !== "media" && ` · ${obra.tamanho === "grande" ? "Grande" : "Pequena"}`}
             </p>
             <h2 className="font-serif text-2xl text-foreground">{obra.titulo}</h2>
           </div>
@@ -194,42 +194,46 @@ export default function Galeria() {
         </div>
 
         {/* Filters */}
-        <div className="sticky top-16 z-40 bg-[hsl(40,43%,96%)]/95 backdrop-blur-sm border-b border-border px-6 py-4">
-          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row gap-4">
+        <div className="sticky top-16 z-40 bg-[hsl(40,43%,96%)]/95 backdrop-blur-sm border-b border-border px-6 py-5">
+          <div className="max-w-6xl mx-auto flex flex-col gap-3">
             {/* Estado */}
-            <div className="flex items-center gap-1 flex-wrap">
-              <span className="text-xs tracking-widest uppercase text-muted-foreground mr-2">Estado:</span>
-              {(["todas", "disponivel", "vendido"] as StatusFilter[]).map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setStatusFilter(f)}
-                  className={`px-4 py-1.5 text-xs tracking-widest uppercase transition-colors ${
-                    statusFilter === f
-                      ? "bg-primary text-white"
-                      : "bg-white border border-border text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {f === "todas" ? "Todas" : f === "disponivel" ? "Disponíveis" : "Vendidas"}
-                </button>
-              ))}
+            <div className="flex items-center gap-3">
+              <span className="text-xs tracking-widest uppercase text-muted-foreground w-20 shrink-0">Estado</span>
+              <div className="flex gap-2">
+                {(["disponivel", "vendido"] as const).map((f) => (
+                  <button
+                    key={f}
+                    onClick={() => setStatusFilter(statusFilter === f ? "todas" : f)}
+                    className={`px-6 py-2.5 text-xs tracking-widest uppercase transition-colors ${
+                      statusFilter === f
+                        ? "bg-primary text-white"
+                        : "bg-white border border-border text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {f === "disponivel" ? "Disponíveis" : "Vendidas"}
+                  </button>
+                ))}
+              </div>
             </div>
 
             {/* Tamanho */}
-            <div className="flex items-center gap-1 flex-wrap">
-              <span className="text-xs tracking-widest uppercase text-muted-foreground mr-2">Tamanho:</span>
-              {(["todos", "grande", "media", "pequena"] as TamanhoFilter[]).map((f) => (
-                <button
-                  key={f}
-                  onClick={() => setTamanhoFilter(f)}
-                  className={`px-4 py-1.5 text-xs tracking-widest uppercase transition-colors ${
-                    tamanhoFilter === f
-                      ? "bg-primary text-white"
-                      : "bg-white border border-border text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {f === "todos" ? "Todos" : f === "grande" ? "Grandes" : f === "media" ? "Médias" : "Pequenas"}
-                </button>
-              ))}
+            <div className="flex items-center gap-3">
+              <span className="text-xs tracking-widest uppercase text-muted-foreground w-20 shrink-0">Tamanho</span>
+              <div className="flex gap-2">
+                {(["grande", "pequena"] as const).map((f) => (
+                  <button
+                    key={f}
+                    onClick={() => setTamanhoFilter(tamanhoFilter === f ? "todos" : f)}
+                    className={`px-6 py-2.5 text-xs tracking-widest uppercase transition-colors ${
+                      tamanhoFilter === f
+                        ? "bg-primary text-white"
+                        : "bg-white border border-border text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {f === "grande" ? "Grandes" : "Pequenas"}
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
