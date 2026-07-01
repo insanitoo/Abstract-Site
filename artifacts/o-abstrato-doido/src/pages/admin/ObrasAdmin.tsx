@@ -199,7 +199,7 @@ export default function ObrasAdmin() {
       )}
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-2xl rounded-none max-h-[90vh] overflow-y-auto mx-4">
+        <DialogContent className="max-w-2xl rounded-none max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="font-serif font-normal text-xl">{editing ? "Editar Obra" : "Nova Obra"}</DialogTitle>
           </DialogHeader>

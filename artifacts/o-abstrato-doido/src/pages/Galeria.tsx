@@ -35,7 +35,7 @@ function ObraModal({ obra, onClose }: { obra: Obra; onClose: () => void }) {
   const next = () => setPhotoIdx((i) => (i + 1) % photos.length);
 
   return (
-    <DialogContent className="max-w-3xl rounded-none p-0 overflow-hidden max-h-[92vh] flex flex-col mx-4">
+    <DialogContent className="max-w-3xl rounded-none p-0 overflow-hidden max-h-[92vh] flex flex-col">
       <button
         onClick={onClose}
         className="absolute top-3 right-3 z-10 p-1 bg-white/80 hover:bg-white rounded-full text-foreground"
@@ -204,7 +204,7 @@ export default function Galeria() {
                   <button
                     key={f}
                     onClick={() => setStatusFilter(statusFilter === f ? "todas" : f)}
-                    className={`px-6 py-2.5 text-xs tracking-widest uppercase transition-colors ${
+                    className={`px-3 py-1 text-xs tracking-widest uppercase transition-colors ${
                       statusFilter === f
                         ? "bg-primary text-white"
                         : "bg-white border border-border text-muted-foreground hover:text-foreground"
@@ -224,7 +224,7 @@ export default function Galeria() {
                   <button
                     key={f}
                     onClick={() => setTamanhoFilter(tamanhoFilter === f ? "todos" : f)}
-                    className={`px-6 py-2.5 text-xs tracking-widest uppercase transition-colors ${
+                    className={`px-3 py-1 text-xs tracking-widest uppercase transition-colors ${
                       tamanhoFilter === f
                         ? "bg-primary text-white"
                         : "bg-white border border-border text-muted-foreground hover:text-foreground"

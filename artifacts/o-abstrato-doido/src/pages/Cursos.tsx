@@ -9,6 +9,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Lock, Play, ChevronLeft, GraduationCap } from "lucide-react";
 
+const WA = "244934959424";
+
+function buildWACurso(nome: string) {
+  const msg = encodeURIComponent(`Vi o curso "${nome}" disponível, quero um acesso.`);
+  return `https://wa.me/${WA}?text=${msg}`;
+}
+
 type Aula = {
   titulo: string;
   videoUrl: string;
@@ -25,6 +32,13 @@ function parseAulas(raw: string | null | undefined): Aula[] {
 }
 
 function VideoPlayer({ url }: { url: string }) {
+  if (!url) {
+    return (
+      <div className="relative w-full aspect-video bg-black flex items-center justify-center">
+        <p className="text-white/60 text-sm">Vídeo não disponível</p>
+      </div>
+    );
+  }
   return (
     <div className="relative w-full aspect-video bg-black">
       <video
@@ -65,7 +79,7 @@ function CursoModal({ curso, onClose }: { curso: Curso; onClose: () => void }) {
   }
 
   return (
-    <DialogContent className="max-w-2xl rounded-none p-0 overflow-hidden max-h-[92vh] flex flex-col mx-4">
+    <DialogContent className="max-w-2xl rounded-none p-0 overflow-hidden max-h-[92vh] flex flex-col">
       <div className="flex flex-col flex-1 overflow-hidden">
         {/* Capa + Info */}
         <div className="flex items-start gap-4 p-6 border-b border-border">
@@ -112,6 +126,17 @@ function CursoModal({ curso, onClose }: { curso: Curso; onClose: () => void }) {
               >
                 {verificar.isPending ? "A verificar..." : "Desbloquear"}
               </Button>
+              <p className="text-xs text-muted-foreground text-center mt-1">
+                Se não tem acesso a este curso,{" "}
+                <a
+                  href={buildWACurso(curso.nome)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary underline underline-offset-2"
+                >
+                  clique aqui para Participar
+                </a>
+              </p>
             </div>
           </div>
         ) : (
@@ -248,9 +273,7 @@ export default function Cursos() {
               })}
             </div>
           ) : (
-            /* Fallback elegante */
             <div className="py-32 text-center">
-              
               <h2 className="font-serif text-2xl text-foreground mb-2">Cursos disponíveis em breve</h2>
               <p className="text-muted-foreground text-sm max-w-md mx-auto">
                 Estamos a preparar conteúdo especial para ti. Volta em breve para saber mais.

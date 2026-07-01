@@ -30,6 +30,7 @@ type Evento = {
   tipo: string;
   descricao?: string | null;
   imagemCapaUrl?: string | null;
+  imagensAdicionais?: string | null;
   linkInscricao?: string | null;
 };
 
@@ -40,10 +41,26 @@ const eventoSchema = z.object({
   tipo: z.enum(["futuro", "passado"]),
   descricao: z.string().optional(),
   imagemCapaUrl: z.string().optional(),
+  imagemAdicional1: z.string().optional(),
+  imagemAdicional2: z.string().optional(),
   linkInscricao: z.string().optional(),
 });
 
 type EventoValues = z.infer<typeof eventoSchema>;
+
+function parseImagens(raw: string | null | undefined): [string, string] {
+  if (!raw) return ["", ""];
+  try {
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed)) return [parsed[0] ?? "", parsed[1] ?? ""];
+  } catch { }
+  return ["", ""];
+}
+
+function serializeImagens(a: string, b: string): string | undefined {
+  const imgs = [a, b].filter(Boolean);
+  return imgs.length > 0 ? JSON.stringify(imgs) : undefined;
+}
 
 export default function EventosAdmin() {
   const queryClient = useQueryClient();
@@ -57,19 +74,25 @@ export default function EventosAdmin() {
   const updateEvento = useUpdateEvento();
   const deleteEvento = useDeleteEvento();
 
+  const emptyValues: EventoValues = {
+    nome: "", local: "", dataEvento: "", tipo: "futuro",
+    descricao: "", imagemCapaUrl: "", imagemAdicional1: "", imagemAdicional2: "", linkInscricao: "",
+  };
+
   const form = useForm<EventoValues>({
     resolver: zodResolver(eventoSchema),
-    defaultValues: { nome: "", local: "", dataEvento: "", tipo: "futuro", descricao: "", imagemCapaUrl: "", linkInscricao: "" },
+    defaultValues: emptyValues,
   });
 
   function openCreate() {
     setEditing(null);
-    form.reset({ nome: "", local: "", dataEvento: "", tipo: "futuro", descricao: "", imagemCapaUrl: "", linkInscricao: "" });
+    form.reset(emptyValues);
     setOpen(true);
   }
 
   function openEdit(evento: Evento) {
     setEditing(evento);
+    const [img1, img2] = parseImagens(evento.imagensAdicionais);
     form.reset({
       nome: evento.nome,
       local: evento.local ?? "",
@@ -77,6 +100,8 @@ export default function EventosAdmin() {
       tipo: evento.tipo as "futuro" | "passado",
       descricao: evento.descricao ?? "",
       imagemCapaUrl: evento.imagemCapaUrl ?? "",
+      imagemAdicional1: img1,
+      imagemAdicional2: img2,
       linkInscricao: evento.linkInscricao ?? "",
     });
     setOpen(true);
@@ -90,6 +115,7 @@ export default function EventosAdmin() {
       tipo: values.tipo,
       descricao: values.descricao || undefined,
       imagemCapaUrl: values.imagemCapaUrl || undefined,
+      imagensAdicionais: serializeImagens(values.imagemAdicional1 ?? "", values.imagemAdicional2 ?? ""),
       linkInscricao: values.linkInscricao || undefined,
     };
     if (editing) {
@@ -170,7 +196,7 @@ export default function EventosAdmin() {
       )}
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-lg rounded-none max-h-[90vh] overflow-y-auto mx-4">
+        <DialogContent className="max-w-lg rounded-none max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="font-serif font-normal text-xl">{editing ? "Editar Evento" : "Novo Evento"}</DialogTitle>
           </DialogHeader>
@@ -179,12 +205,30 @@ export default function EventosAdmin() {
               <FormField control={form.control} name="nome" render={({ field }) => (
                 <FormItem><FormLabel className="text-xs tracking-widest uppercase">Nome *</FormLabel><FormControl><Input {...field} className="rounded-none" /></FormControl><FormMessage /></FormItem>
               )} />
-              <FormField control={form.control} name="imagemCapaUrl" render={({ field }) => (
-                <FormItem>
-                  <ImageUpload value={field.value} onChange={field.onChange} label="Imagem de Capa" />
-                  <FormMessage />
-                </FormItem>
-              )} />
+
+              {/* Fotos */}
+              <div className="space-y-3">
+                <p className="text-xs tracking-widest uppercase font-medium">Fotos</p>
+                <FormField control={form.control} name="imagemCapaUrl" render={({ field }) => (
+                  <FormItem>
+                    <ImageUpload value={field.value} onChange={field.onChange} label="Capa" />
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={form.control} name="imagemAdicional1" render={({ field }) => (
+                  <FormItem>
+                    <ImageUpload value={field.value} onChange={field.onChange} label="Foto adicional 1" />
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={form.control} name="imagemAdicional2" render={({ field }) => (
+                  <FormItem>
+                    <ImageUpload value={field.value} onChange={field.onChange} label="Foto adicional 2" />
+                    <FormMessage />
+                  </FormItem>
+                )} />
+              </div>
+
               <div className="grid grid-cols-2 gap-3">
                 <FormField control={form.control} name="local" render={({ field }) => (
                   <FormItem><FormLabel className="text-xs tracking-widest uppercase">Local</FormLabel><FormControl><Input {...field} className="rounded-none" /></FormControl><FormMessage /></FormItem>
@@ -201,7 +245,7 @@ export default function EventosAdmin() {
                   </Select><FormMessage /></FormItem>
               )} />
               <FormField control={form.control} name="descricao" render={({ field }) => (
-                <FormItem><FormLabel className="text-xs tracking-widest uppercase">Descrição</FormLabel><FormControl><Textarea {...field} className="rounded-none resize-none" rows={2} /></FormControl><FormMessage /></FormItem>
+                <FormItem><FormLabel className="text-xs tracking-widest uppercase">Descrição</FormLabel><FormControl><Textarea {...field} className="rounded-none resize-none" rows={3} /></FormControl><FormMessage /></FormItem>
               )} />
               <FormField control={form.control} name="linkInscricao" render={({ field }) => (
                 <FormItem><FormLabel className="text-xs tracking-widest uppercase">Link Inscrição</FormLabel><FormControl><Input {...field} placeholder="https://..." className="rounded-none" /></FormControl><FormMessage /></FormItem>
@@ -218,7 +262,7 @@ export default function EventosAdmin() {
       </Dialog>
 
       <AlertDialog open={!!deleting} onOpenChange={(o) => !o && setDeleting(null)}>
-        <AlertDialogContent className="rounded-none mx-4">
+        <AlertDialogContent className="rounded-none">
           <AlertDialogHeader>
             <AlertDialogTitle className="font-serif font-normal">Remover Evento</AlertDialogTitle>
             <AlertDialogDescription>Tem a certeza que quer remover "{deleting?.nome}"?</AlertDialogDescription>

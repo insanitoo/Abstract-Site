@@ -192,15 +192,17 @@ export default function Home() {
                 </div>
               </div>
               <div className="flex flex-col sm:flex-row gap-3">
-                <a
-                  href={buildWA(`Olá, vi no seu site o evento "${proximoEvento.nome}" e gostaria de saber mais.`)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-testid={`button-interessado-evento-${proximoEvento.id}`}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white text-sm tracking-widest uppercase hover:bg-primary/90 transition-colors whitespace-nowrap"
-                >
-                  Interessado
-                </a>
+                {proximoEvento.tipo === "futuro" && (
+                  <a
+                    href={buildWA(`Olá, vi no seu site o evento "${proximoEvento.nome}" e gostaria de saber mais.`)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-testid={`button-interessado-evento-${proximoEvento.id}`}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white text-sm tracking-widest uppercase hover:bg-primary/90 transition-colors whitespace-nowrap"
+                  >
+                    Interessado
+                  </a>
+                )}
                 <Link
                   href="/agenda"
                   data-testid="button-ver-agenda"
