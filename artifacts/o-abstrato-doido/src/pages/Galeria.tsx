@@ -123,6 +123,13 @@ function ObraModal({ obra, onClose }: { obra: Obra; onClose: () => void }) {
             </div>
           )}
 
+          {obra.tamanho && obra.tamanho !== "none" && obra.tamanho !== "media" && (
+            <div>
+              <p className="text-xs tracking-widest uppercase text-muted-foreground mb-0.5">Tamanho</p>
+              <p className="text-sm text-foreground">{obra.tamanho === "grande" ? "Grande" : "Pequena"}</p>
+            </div>
+          )}
+
           {obra.dimensoes && (
             <div>
               <p className="text-xs tracking-widest uppercase text-muted-foreground mb-0.5">Dimensões</p>
