@@ -3,7 +3,7 @@ import { useListEventos } from "@workspace/api-client-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Calendar, MapPin, X, ChevronLeft, ChevronRight } from "lucide-react";
 
 const WA = "244934959424";
@@ -46,7 +46,8 @@ function EventoModal({ evento, onClose }: { evento: EventoType; onClose: () => v
   const isFuture = evento.tipo === "futuro";
 
   return (
-    <DialogContent className="max-w-2xl rounded-none p-0 overflow-hidden max-h-[92vh] flex flex-col">
+    <DialogContent className="max-w-2xl rounded-none p-0 overflow-hidden max-h-[92vh] flex flex-col" aria-describedby={undefined}>
+      <DialogTitle className="sr-only">{evento.nome}</DialogTitle>
       <button
         onClick={onClose}
         className="absolute top-6 right-3 z-10 p-1 bg-white/80 hover:bg-white rounded-full text-foreground"

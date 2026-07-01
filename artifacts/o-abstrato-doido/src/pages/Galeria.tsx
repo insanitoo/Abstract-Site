@@ -4,7 +4,7 @@ import type { Obra } from "@workspace/api-client-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 type StatusFilter = "todas" | "disponivel" | "vendido";
@@ -24,6 +24,7 @@ function getObraPhotos(obra: Obra): string[] {
   if (obra.imagemUrl) photos.push(obra.imagemUrl);
   if (obra.imagemUrl2) photos.push(obra.imagemUrl2);
   if (obra.imagemUrl3) photos.push(obra.imagemUrl3);
+  if (obra.imagemUrl4) photos.push(obra.imagemUrl4);
   return photos;
 }
 
@@ -35,7 +36,8 @@ function ObraModal({ obra, onClose }: { obra: Obra; onClose: () => void }) {
   const next = () => setPhotoIdx((i) => (i + 1) % photos.length);
 
   return (
-    <DialogContent className="max-w-3xl rounded-none p-0 overflow-hidden max-h-[92vh] flex flex-col">
+    <DialogContent className="max-w-3xl rounded-none p-0 overflow-hidden max-h-[92vh] flex flex-col" aria-describedby={undefined}>
+      <DialogTitle className="sr-only">{obra.titulo}</DialogTitle>
       <button
         onClick={onClose}
         className="absolute top-3 right-3 z-10 p-1 bg-white/80 hover:bg-white rounded-full text-foreground"

@@ -57,6 +57,9 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+    hmr: {
+      overlay: false,
+    },
   },
   preview: {
     port,

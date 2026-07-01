@@ -6,6 +6,7 @@
  * OpenAPI spec version: 0.1.0
  */
 import type { ObraStatus } from './obraStatus';
+import type { ObraTamanho } from './obraTamanho';
 
 export interface Obra {
   id: number;
@@ -13,11 +14,21 @@ export interface Obra {
   /** @nullable */
   descricao?: string | null;
   /** @nullable */
+  tecnica?: string | null;
+  /** @nullable */
   dimensoes?: string | null;
   /** @nullable */
   preco?: string | null;
   status: ObraStatus;
   /** @nullable */
+  tamanho?: ObraTamanho;
+  /** @nullable */
   imagemUrl?: string | null;
+  /** @nullable */
+  imagemUrl2?: string | null;
+  /** @nullable */
+  imagemUrl3?: string | null;
+  /** @nullable */
+  imagemUrl4?: string | null;
   dataCriacao: string;
 }

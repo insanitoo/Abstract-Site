@@ -17,7 +17,8 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({
+// Imagens: até 10 MB
+const uploadImage = multer({
   storage,
   limits: { fileSize: 10 * 1024 * 1024 },
   fileFilter: (_req, file, cb) => {
@@ -26,11 +27,30 @@ const upload = multer({
   },
 });
 
+// Vídeos: até 500 MB
+const uploadVideo = multer({
+  storage,
+  limits: { fileSize: 500 * 1024 * 1024 },
+  fileFilter: (_req, file, cb) => {
+    if (file.mimetype.startsWith("video/")) cb(null, true);
+    else cb(new Error("Apenas vídeos são permitidos"));
+  },
+});
+
 const router: IRouter = Router();
 
-router.post("/upload", upload.single("file"), (req, res): void => {
+router.post("/upload", uploadImage.single("file"), (req, res): void => {
   if (!req.file) {
     res.status(400).json({ error: "Nenhum ficheiro enviado" });
+    return;
+  }
+  const url = `/api/uploads/${req.file.filename}`;
+  res.json({ url });
+});
+
+router.post("/upload/video", uploadVideo.single("file"), (req, res): void => {
+  if (!req.file) {
+    res.status(400).json({ error: "Nenhum vídeo enviado" });
     return;
   }
   const url = `/api/uploads/${req.file.filename}`;

@@ -123,7 +123,7 @@ export default function CursosAdmin() {
     try {
       const fd = new FormData();
       fd.append("file", file);
-      const res = await fetch("/api/upload", { method: "POST", body: fd });
+      const res = await fetch("/api/upload/video", { method: "POST", body: fd });
       if (!res.ok) throw new Error("Falha no upload");
       const data = await res.json() as { url: string };
       setAulas(aulas.map((a, i) => i === idx ? { ...a, videoUrl: data.url } : a));
@@ -287,7 +287,7 @@ export default function CursosAdmin() {
           </div>
 
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
               {/* Step 1: Informações */}
               {step === 1 && (
                 <>
@@ -440,7 +440,8 @@ export default function CursosAdmin() {
                     </Button>
                   ) : (
                     <Button
-                      type="submit"
+                      type="button"
+                      onClick={form.handleSubmit(onSubmit)}
                       disabled={createCurso.isPending || updateCurso.isPending}
                       className="rounded-none text-xs tracking-widest uppercase bg-foreground hover:bg-foreground/90"
                     >

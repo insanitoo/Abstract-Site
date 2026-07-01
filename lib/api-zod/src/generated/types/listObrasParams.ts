@@ -6,8 +6,10 @@
  * OpenAPI spec version: 0.1.0
  */
 import type { ListObrasStatus } from './listObrasStatus';
+import type { ListObrasTamanho } from './listObrasTamanho';
 
 export type ListObrasParams = {
 status?: ListObrasStatus;
+tamanho?: ListObrasTamanho;
 limit?: number;
 };

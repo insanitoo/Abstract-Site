@@ -33,10 +33,11 @@ export const ListObrasResponseItem = zod.object({
   "dimensoes": zod.string().nullish(),
   "preco": zod.string().nullish(),
   "status": zod.enum(['disponivel', 'vendido']),
-  "tamanho": zod.enum(['grande', 'media', 'pequena']).nullish(),
+  "tamanho": zod.union([zod.literal('grande'),zod.literal('media'),zod.literal('pequena'),zod.literal(null)]).nullish(),
   "imagemUrl": zod.string().nullish(),
   "imagemUrl2": zod.string().nullish(),
   "imagemUrl3": zod.string().nullish(),
+  "imagemUrl4": zod.string().nullish(),
   "dataCriacao": zod.string()
 })
 export const ListObrasResponse = zod.array(ListObrasResponseItem)
@@ -55,7 +56,8 @@ export const CreateObraBody = zod.object({
   "tamanho": zod.enum(['grande', 'media', 'pequena']).optional(),
   "imagemUrl": zod.string().optional(),
   "imagemUrl2": zod.string().optional(),
-  "imagemUrl3": zod.string().optional()
+  "imagemUrl3": zod.string().optional(),
+  "imagemUrl4": zod.string().optional()
 })
 
 
@@ -74,10 +76,11 @@ export const GetObraResponse = zod.object({
   "dimensoes": zod.string().nullish(),
   "preco": zod.string().nullish(),
   "status": zod.enum(['disponivel', 'vendido']),
-  "tamanho": zod.enum(['grande', 'media', 'pequena']).nullish(),
+  "tamanho": zod.union([zod.literal('grande'),zod.literal('media'),zod.literal('pequena'),zod.literal(null)]).nullish(),
   "imagemUrl": zod.string().nullish(),
   "imagemUrl2": zod.string().nullish(),
   "imagemUrl3": zod.string().nullish(),
+  "imagemUrl4": zod.string().nullish(),
   "dataCriacao": zod.string()
 })
 
@@ -99,7 +102,8 @@ export const UpdateObraBody = zod.object({
   "tamanho": zod.enum(['grande', 'media', 'pequena']).optional(),
   "imagemUrl": zod.string().optional(),
   "imagemUrl2": zod.string().optional(),
-  "imagemUrl3": zod.string().optional()
+  "imagemUrl3": zod.string().optional(),
+  "imagemUrl4": zod.string().optional()
 })
 
 export const UpdateObraResponse = zod.object({
@@ -110,10 +114,11 @@ export const UpdateObraResponse = zod.object({
   "dimensoes": zod.string().nullish(),
   "preco": zod.string().nullish(),
   "status": zod.enum(['disponivel', 'vendido']),
-  "tamanho": zod.enum(['grande', 'media', 'pequena']).nullish(),
+  "tamanho": zod.union([zod.literal('grande'),zod.literal('media'),zod.literal('pequena'),zod.literal(null)]).nullish(),
   "imagemUrl": zod.string().nullish(),
   "imagemUrl2": zod.string().nullish(),
   "imagemUrl3": zod.string().nullish(),
+  "imagemUrl4": zod.string().nullish(),
   "dataCriacao": zod.string()
 })
 
@@ -410,3 +415,5 @@ export const GetMeResponse = zod.object({
   "id": zod.number(),
   "username": zod.string()
 })
+
+

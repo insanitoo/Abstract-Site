@@ -34,6 +34,7 @@ type Obra = {
   imagemUrl?: string | null;
   imagemUrl2?: string | null;
   imagemUrl3?: string | null;
+  imagemUrl4?: string | null;
   dataCriacao: string;
 };
 
@@ -48,6 +49,7 @@ const obraSchema = z.object({
   imagemUrl: z.string().optional(),
   imagemUrl2: z.string().optional(),
   imagemUrl3: z.string().optional(),
+  imagemUrl4: z.string().optional(),
 });
 
 type ObraValues = z.infer<typeof obraSchema>;
@@ -66,7 +68,7 @@ export default function ObrasAdmin() {
 
   const emptyValues: ObraValues = {
     titulo: "", descricao: "", tecnica: "", dimensoes: "", preco: "",
-    status: "disponivel", tamanho: "none", imagemUrl: "", imagemUrl2: "", imagemUrl3: ""
+    status: "disponivel", tamanho: "none", imagemUrl: "", imagemUrl2: "", imagemUrl3: "", imagemUrl4: ""
   };
 
   const form = useForm<ObraValues>({
@@ -93,6 +95,7 @@ export default function ObrasAdmin() {
       imagemUrl: obra.imagemUrl ?? "",
       imagemUrl2: obra.imagemUrl2 ?? "",
       imagemUrl3: obra.imagemUrl3 ?? "",
+      imagemUrl4: obra.imagemUrl4 ?? "",
     });
     setOpen(true);
   }
@@ -109,6 +112,7 @@ export default function ObrasAdmin() {
       imagemUrl: values.imagemUrl || undefined,
       imagemUrl2: values.imagemUrl2 || undefined,
       imagemUrl3: values.imagemUrl3 || undefined,
+      imagemUrl4: values.imagemUrl4 || undefined,
     };
 
     if (editing) {
@@ -227,6 +231,12 @@ export default function ObrasAdmin() {
                 <FormField control={form.control} name="imagemUrl3" render={({ field }) => (
                   <FormItem>
                     <ImageUpload value={field.value} onChange={field.onChange} label="Foto 3 (opcional)" />
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={form.control} name="imagemUrl4" render={({ field }) => (
+                  <FormItem>
+                    <ImageUpload value={field.value} onChange={field.onChange} label="Foto 4 (opcional)" />
                     <FormMessage />
                   </FormItem>
                 )} />

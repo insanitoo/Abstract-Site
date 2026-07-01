@@ -6,12 +6,18 @@
  * OpenAPI spec version: 0.1.0
  */
 import type { ObraInputStatus } from './obraInputStatus';
+import type { ObraInputTamanho } from './obraInputTamanho';
 
 export interface ObraInput {
   titulo: string;
   descricao?: string;
+  tecnica?: string;
   dimensoes?: string;
   preco?: string;
   status: ObraInputStatus;
+  tamanho?: ObraInputTamanho;
   imagemUrl?: string;
+  imagemUrl2?: string;
+  imagemUrl3?: string;
+  imagemUrl4?: string;
 }

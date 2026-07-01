@@ -17,6 +17,7 @@ export const obrasTable = pgTable("obras", {
   imagemUrl: text("imagem_url"),
   imagemUrl2: text("imagem_url2"),
   imagemUrl3: text("imagem_url3"),
+  imagemUrl4: text("imagem_url4"),
   dataCriacao: timestamp("data_criacao", { withTimezone: true }).notNull().defaultNow(),
 });
 
