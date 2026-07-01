@@ -8,6 +8,11 @@ import { logger } from "./lib/logger";
 
 const app: Express = express();
 
+// Necessário no Render (e qualquer proxy TLS): permite cookies seguros atrás de reverse proxy
+if (process.env.NODE_ENV === "production") {
+  app.set("trust proxy", 1);
+}
+
 app.use(
   pinoHttp({
     logger,
@@ -41,5 +46,15 @@ app.use(
 
 app.use("/api/uploads", express.static(path.join(process.cwd(), "uploads")));
 app.use("/api", router);
+
+// Em produção serve o frontend React como ficheiros estáticos
+if (process.env.NODE_ENV === "production") {
+  const frontendDist = path.join(process.cwd(), "artifacts/o-abstrato-doido/dist/public");
+  app.use(express.static(frontendDist));
+  // SPA fallback — apenas rotas não-API devolvem o index.html
+  app.get(/^(?!\/api).*$/, (_req, res) => {
+    res.sendFile(path.join(frontendDist, "index.html"));
+  });
+}
 
 export default app;
