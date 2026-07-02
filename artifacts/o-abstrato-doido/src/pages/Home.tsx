@@ -54,33 +54,36 @@ export default function Home() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative h-[77vh] md:h-[130vh] min-h-[420px] flex items-end pb-80 md:pb-24">
+      <section className="relative h-[77vh] md:h-[130vh] min-h-[420px] flex items-end pb-15 md:pb-24">
         <div
           className="absolute inset-0 bg-cover bg-top"
           style={{ backgroundImage: `url(${heroPng})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
         <div className="relative z-10 max-w-6xl mx-auto px-6 w-full">
+
           <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white leading-tight max-w-2xl drop-shadow-lg">
             Algumas pessoas compram quadros
           </h1>
           <p className="text-white/90 text-sm mt-3 max-w-md drop-shadow">
             Outras levam perguntas para casa.
           </p>
-        </div>
-        <Link
-          href="/galeria"
-          data-testid="button-ver-galeria"
-          className="absolute z-10 bottom-32 left-1/2 -translate-x-1/2 inline-flex items-center gap-2 px-8 py-3 bg-primary text-white text-sm tracking-widest uppercase hover:bg-primary/90 transition-colors"
-        >
-          Ver Galeria
-          <ArrowRight size={16} />
-        </Link>
+          <div className="mt-72"> 
+              <Link
+                href="/galeria"
+                data-testid="button-ver-galeria"
+                className="inline-flex items-center gap-2 px-8 py-3 bg-primary text-white text-sm tracking-widest uppercase hover:bg-primary/90 transition-colors"
+              >
+                Ver Galeria
+                <ArrowRight size={16} />
+              </Link>
+            </div>
+          </div>
       </section>
 
       {/* About teaser */}
       <section className="py-20 bg-[hsl(40,43%,96%)]">
-        <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div className="max-w-4xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1">
             <p className="text-muted-foreground leading-relaxed text-base mb-1">
               Dioleny Intya, artista plástico angolano reconhecido pela UNAP, e amplamente conhecido como “O Abstrato Doido".            </p>
@@ -93,14 +96,7 @@ export default function Home() {
               <ArrowRight size={14} />
             </Link>
           </div>
-          <div className="order-1 md:order-2">
-            <img
-              src={artistPng}
-              alt="O Abstrato Doido no atelier"
-              className="w-full aspect-[4/3] object-cover"
-              data-testid="img-artist"
-            />
-          </div>
+          
         </div>
       </section>
 

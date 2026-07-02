@@ -33,12 +33,10 @@ export default function Sobre() {
               />
             </div>
             <div className="pt-4">
-              <p className="text-5xl font-serif text-primary leading-none mb-6">
+              <p className="text-5xl font-serif text-primary leading-none mb-1">
                 "
               </p>
-              <p className="font-serif text-2xl md:text-3xl text-foreground leading-snug mb-8">
-                Bem-vindo ao meu espaço de expressão.
-              </p>
+              
               <p className="text-muted-foreground leading-relaxed mb-6">
                 Dioleny Intya, 23 anos, Angola.
               </p>
@@ -120,88 +118,9 @@ export default function Sobre() {
           </div>
         </section>
 
-        {/* A Filosofia das Cores */}
-        <section className="py-20 bg-white">
-          <div className="max-w-6xl mx-auto px-6">
-            <h2 className="font-serif text-3xl text-foreground mb-12 text-center">
-              A Filosofia das Cores
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="flex gap-6 items-start">
-                <div className="w-16 h-16 flex-shrink-0 bg-primary flex items-center justify-center">
-                  <span className="text-white font-serif text-xs text-center leading-tight px-1">
-                    Verde
-                  </span>
-                </div>
-                <div>
-                  <h3 className="font-serif text-xl text-primary mb-2">
-                    Verde — Harmonia
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    O verde que atravessa grande parte das minhas obras
-                    representa a harmonia entre o artista e a natureza, entre o
-                    caos e a ordem. É a cor que ancora, que equilibra, que
-                    respira.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-6 items-start">
-                <div className="w-16 h-16 flex-shrink-0 bg-orange-500 flex items-center justify-center">
-                  <span className="text-white font-serif text-xs text-center leading-tight px-1">
-                    Laranja
-                  </span>
-                </div>
-                <div>
-                  <h3 className="font-serif text-xl text-orange-600 mb-2">
-                    Laranja — Energia
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    O laranja irrompe nas telas como um grito de vitalidade. É a
-                    cor da ação, do desejo, da transformação. Quando o laranja
-                    aparece, é porque há algo urgente a dizer.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-6 items-start">
-                <div className="w-16 h-16 flex-shrink-0 bg-blue-900 flex items-center justify-center">
-                  <span className="text-white font-serif text-xs text-center leading-tight px-1">
-                    Azul
-                  </span>
-                </div>
-                <div>
-                  <h3 className="font-serif text-xl text-blue-900 mb-2">
-                    Azul Profundo — Silêncio
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    O azul profundo é a meditação. É o espaço entre os sons, o
-                    instante antes do gesto. Nas minhas obras, o azul convida ao
-                    mergulho interior.
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-6 items-start">
-                <div className="w-16 h-16 flex-shrink-0 bg-yellow-600 flex items-center justify-center">
-                  <span className="text-white font-serif text-xs text-center leading-tight px-1">
-                    Dourado
-                  </span>
-                </div>
-                <div>
-                  <h3 className="font-serif text-xl text-yellow-700 mb-2">
-                    Dourado — Transcendência
-                  </h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    O dourado é raro nas minhas telas — e por isso, quando
-                    aparece, é sagrado. É a luz que atravessa, o momento de
-                    graça que a arte pode capturar.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Bastidores */}
-        <section className="py-20 bg-[hsl(40,43%,96%)]">
+        <section className="py-20 bg-white">
           <div className="max-w-6xl mx-auto px-6">
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
