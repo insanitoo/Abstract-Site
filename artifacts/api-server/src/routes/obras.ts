@@ -119,6 +119,7 @@ function serializeObra(obra: typeof obrasTable.$inferSelect) {
     imagemUrl: obra.imagemUrl,
     imagemUrl2: obra.imagemUrl2,
     imagemUrl3: obra.imagemUrl3,
+    imagemUrl4: obra.imagemUrl4,
     dataCriacao: obra.dataCriacao instanceof Date ? obra.dataCriacao.toISOString() : obra.dataCriacao,
   };
 }

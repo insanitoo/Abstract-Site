@@ -46,7 +46,7 @@ function EventoModal({ evento, onClose }: { evento: EventoType; onClose: () => v
   const isFuture = evento.tipo === "futuro";
 
   return (
-    <DialogContent className="max-w-2xl rounded-none p-0 overflow-hidden max-h-[92vh] flex flex-col" aria-describedby={undefined}>
+    <DialogContent hideClose className="max-w-2xl rounded-none p-0 overflow-hidden max-h-[92vh] flex flex-col" aria-describedby={undefined}>
       <DialogTitle className="sr-only">{evento.nome}</DialogTitle>
       <button
         onClick={onClose}

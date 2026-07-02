@@ -9,6 +9,19 @@ import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 type StatusFilter = "todas" | "disponivel" | "vendido";
 type TamanhoFilter = "todos" | "grande" | "pequena";
+type MoedaFilter = "kz" | "usd" | "eur" | "brl";
+
+const RATES: Record<MoedaFilter, number> = { kz: 1, usd: 950, eur: 1050, brl: 5 };
+const SYMBOLS: Record<MoedaFilter, string> = { kz: "Kz", usd: "USD", eur: "EUR", brl: "BRL" };
+
+function convertPreco(preco: string | null | undefined, moeda: MoedaFilter): string | null {
+  if (!preco) return null;
+  const num = parseFloat(preco.replace(/[^\d.,]/g, "").replace(",", "."));
+  if (isNaN(num)) return preco;
+  if (moeda === "kz") return `${num.toLocaleString("pt-AO")} Kz`;
+  const converted = num / RATES[moeda];
+  return `${converted.toLocaleString("pt-AO", { maximumFractionDigits: 2 })} ${SYMBOLS[moeda]}`;
+}
 
 const WA = "244934959424";
 
@@ -28,7 +41,7 @@ function getObraPhotos(obra: Obra): string[] {
   return photos;
 }
 
-function ObraModal({ obra, onClose }: { obra: Obra; onClose: () => void }) {
+function ObraModal({ obra, onClose, moeda }: { obra: Obra; onClose: () => void; moeda: MoedaFilter }) {
   const photos = getObraPhotos(obra);
   const [photoIdx, setPhotoIdx] = useState(0);
 
@@ -36,7 +49,7 @@ function ObraModal({ obra, onClose }: { obra: Obra; onClose: () => void }) {
   const next = () => setPhotoIdx((i) => (i + 1) % photos.length);
 
   return (
-    <DialogContent className="max-w-3xl rounded-none p-0 overflow-hidden max-h-[92vh] flex flex-col" aria-describedby={undefined}>
+    <DialogContent hideClose className="max-w-3xl rounded-none p-0 overflow-hidden max-h-[92vh] flex flex-col" aria-describedby={undefined}>
       <DialogTitle className="sr-only">{obra.titulo}</DialogTitle>
       <button
         onClick={onClose}
@@ -142,7 +155,7 @@ function ObraModal({ obra, onClose }: { obra: Obra; onClose: () => void }) {
           {obra.preco && (
             <div>
               <p className="text-xs tracking-widest uppercase text-muted-foreground mb-0.5">Preço</p>
-              <p className="text-base font-medium text-foreground">{obra.preco}</p>
+              <p className="text-base font-medium text-foreground">{convertPreco(obra.preco, moeda)}</p>
             </div>
           )}
 
@@ -178,6 +191,7 @@ function ObraModal({ obra, onClose }: { obra: Obra; onClose: () => void }) {
 export default function Galeria() {
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("todas");
   const [tamanhoFilter, setTamanhoFilter] = useState<TamanhoFilter>("todos");
+  const [moeda, setMoeda] = useState<MoedaFilter>("kz");
   const [selectedObra, setSelectedObra] = useState<Obra | null>(null);
 
   const params: Record<string, string | number> = {};
@@ -244,6 +258,26 @@ export default function Galeria() {
                 ))}
               </div>
             </div>
+
+            {/* Moeda */}
+            <div className="flex items-center gap-3">
+              <span className="text-xs tracking-widest uppercase text-muted-foreground w-20 shrink-0">Moeda</span>
+              <div className="flex gap-2">
+                {(["usd", "eur", "brl"] as const).map((m) => (
+                  <button
+                    key={m}
+                    onClick={() => setMoeda(moeda === m ? "kz" : m)}
+                    className={`px-3 py-1 text-xs tracking-widest uppercase transition-colors ${
+                      moeda === m
+                        ? "bg-primary text-white"
+                        : "bg-white border border-border text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {m.toUpperCase()}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -287,7 +321,7 @@ export default function Galeria() {
                       <p className="text-xs text-muted-foreground mt-0.5">{obra.tecnica}</p>
                     )}
                     {obra.preco && (
-                      <p className="text-xs font-medium text-foreground mt-0.5">{obra.preco}</p>
+                      <p className="text-xs font-medium text-foreground mt-0.5">{convertPreco(obra.preco, moeda)}</p>
                     )}
                     {obra.descricao && (
                       <p className="text-xs text-muted-foreground mt-1 line-clamp-1">{obra.descricao}</p>
@@ -327,7 +361,7 @@ export default function Galeria() {
       {/* Modal de obra */}
       <Dialog open={!!selectedObra} onOpenChange={(o) => !o && setSelectedObra(null)}>
         {selectedObra && (
-          <ObraModal obra={selectedObra} onClose={() => setSelectedObra(null)} />
+          <ObraModal obra={selectedObra} onClose={() => setSelectedObra(null)} moeda={moeda} />
         )}
       </Dialog>
     </div>
