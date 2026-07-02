@@ -1,6 +1,6 @@
 import { Router, type IRouter } from "express";
 import { db, obrasTable } from "@workspace/db";
-import { eq } from "drizzle-orm";
+import { eq, desc, sql } from "drizzle-orm";
 import {
   ListObrasQueryParams,
   CreateObraBody,
@@ -19,7 +19,10 @@ router.get("/obras", async (req, res): Promise<void> => {
     return;
   }
 
-  let obras = await db.select().from(obrasTable).orderBy(obrasTable.dataCriacao);
+  let obras = await db
+    .select()
+    .from(obrasTable)
+  .orderBy(sql`obras.ordem ASC NULLS LAST`, desc(obrasTable.dataCriacao));
 
   if (query.data.status) {
     obras = obras.filter((o) => o.status === query.data.status);
@@ -28,9 +31,7 @@ router.get("/obras", async (req, res): Promise<void> => {
     obras = obras.filter((o) => o.tamanho === query.data.tamanho);
   }
   if (query.data.limit) {
-    obras = obras.slice(-query.data.limit).reverse();
-  } else {
-    obras = obras.reverse();
+    obras = obras.slice(0, query.data.limit);
   }
 
   res.json(obras.map(serializeObra));
