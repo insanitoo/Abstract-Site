@@ -51,6 +51,11 @@ export interface Obra {
   imagemUrl3?: string | null;
   /** @nullable */
   imagemUrl4?: string | null;
+  destaque?: boolean;
+  /** @nullable */
+  ordem?: number | null;
+  /** @nullable */
+  desconto?: number | null;
   dataCriacao: string;
 }
 
@@ -83,6 +88,9 @@ export interface ObraInput {
   imagemUrl2?: string;
   imagemUrl3?: string;
   imagemUrl4?: string;
+  destaque?: boolean;
+  ordem?: number;
+  desconto?: number;
 }
 
 export type ObraUpdateStatus = typeof ObraUpdateStatus[keyof typeof ObraUpdateStatus];
@@ -114,6 +122,9 @@ export interface ObraUpdate {
   imagemUrl2?: string;
   imagemUrl3?: string;
   imagemUrl4?: string;
+  destaque?: boolean;
+  ordem?: number;
+  desconto?: number;
 }
 
 export type EventoTipo = typeof EventoTipo[keyof typeof EventoTipo];

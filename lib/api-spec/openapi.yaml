@@ -19,6 +19,8 @@ tags:
     description: Courses
   - name: auth
     description: Authentication
+  - name: configuracoes
+    description: Settings
 paths:
   /healthz:
     get:
@@ -549,6 +551,12 @@ components:
           type: ["string", "null"]
         imagemUrl4:
           type: ["string", "null"]
+        destaque:
+          type: boolean
+        ordem:
+          type: ["integer", "null"]
+        desconto:
+          type: ["integer", "null"]
         dataCriacao:
           type: string
 
@@ -580,6 +588,12 @@ components:
           type: string
         imagemUrl4:
           type: string
+        destaque:
+          type: boolean
+        ordem:
+          type: integer
+        desconto:
+          type: integer
 
     ObraUpdate:
       type: object
@@ -608,6 +622,12 @@ components:
           type: string
         imagemUrl4:
           type: string
+        destaque:
+          type: boolean
+        ordem:
+          type: integer
+        desconto:
+          type: integer
 
     Evento:
       type: object

@@ -2,10 +2,12 @@ import { ReactNode, useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useGetMe, useLogout, getGetMeQueryKey } from "@workspace/api-client-react";
 import { useQueryClient } from "@tanstack/react-query";
-import { ImageIcon, CalendarIcon, FileTextIcon, ExternalLink, LogOut, Menu, X, GraduationCap } from "lucide-react";
+import { ImageIcon, CalendarIcon, FileTextIcon, ExternalLink, LogOut, Menu, X, GraduationCap, Tag, ListOrdered } from "lucide-react";
 
 const navItems = [
   { href: "/odoido/obras", label: "Obras", icon: ImageIcon },
+  { href: "/odoido/ordem", label: "Ordem / Destaque", icon: ListOrdered },
+  { href: "/odoido/descontos", label: "Descontos", icon: Tag },
   { href: "/odoido/eventos", label: "Eventos", icon: CalendarIcon },
   { href: "/odoido/blog", label: "Blog", icon: FileTextIcon },
   { href: "/odoido/cursos", label: "Cursos", icon: GraduationCap },

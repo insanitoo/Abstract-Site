@@ -1,4 +1,4 @@
-import { pgTable, text, serial, timestamp, pgEnum } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, timestamp, pgEnum, boolean, integer } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
@@ -18,6 +18,9 @@ export const obrasTable = pgTable("obras", {
   imagemUrl2: text("imagem_url2"),
   imagemUrl3: text("imagem_url3"),
   imagemUrl4: text("imagem_url4"),
+  destaque: boolean("destaque").notNull().default(false),
+  ordem: integer("ordem"),
+  desconto: integer("desconto"),
   dataCriacao: timestamp("data_criacao", { withTimezone: true }).notNull().defaultNow(),
 });
 

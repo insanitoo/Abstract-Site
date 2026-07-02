@@ -16,6 +16,8 @@ import ObrasAdmin from "@/pages/admin/ObrasAdmin";
 import EventosAdmin from "@/pages/admin/EventosAdmin";
 import BlogAdmin from "@/pages/admin/BlogAdmin";
 import CursosAdmin from "@/pages/admin/CursosAdmin";
+import OrdemAdmin from "@/pages/admin/OrdemAdmin";
+import DescontosAdmin from "@/pages/admin/DescontosAdmin";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -45,6 +47,8 @@ function Router() {
       <Route path="/odoido/eventos" component={() => <AdminLayout><EventosAdmin /></AdminLayout>} />
       <Route path="/odoido/blog" component={() => <AdminLayout><BlogAdmin /></AdminLayout>} />
       <Route path="/odoido/cursos" component={() => <AdminLayout><CursosAdmin /></AdminLayout>} />
+      <Route path="/odoido/ordem" component={() => <AdminLayout><OrdemAdmin /></AdminLayout>} />
+      <Route path="/odoido/descontos" component={() => <AdminLayout><DescontosAdmin /></AdminLayout>} />
       <Route component={NotFound} />
     </Switch>
   );

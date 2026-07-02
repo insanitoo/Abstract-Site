@@ -30,5 +30,10 @@ export interface Obra {
   imagemUrl3?: string | null;
   /** @nullable */
   imagemUrl4?: string | null;
+  destaque?: boolean;
+  /** @nullable */
+  ordem?: number | null;
+  /** @nullable */
+  desconto?: number | null;
   dataCriacao: string;
 }

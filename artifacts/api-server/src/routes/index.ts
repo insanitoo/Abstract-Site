@@ -6,6 +6,7 @@ import blogRouter from "./blog";
 import authRouter from "./auth";
 import uploadRouter from "./upload";
 import cursosRouter from "./cursos";
+import configuracoesRouter from "./configuracoes";
 
 const router: IRouter = Router();
 
@@ -20,5 +21,6 @@ router.use(obrasRouter);
 router.use(eventosRouter);
 router.use(blogRouter);
 router.use(cursosRouter);
+router.use(configuracoesRouter);
 
 export default router;

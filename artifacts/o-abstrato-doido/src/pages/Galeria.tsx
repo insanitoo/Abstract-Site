@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useListObras } from "@workspace/api-client-react";
 import type { Obra } from "@workspace/api-client-react";
 import Navbar from "@/components/Navbar";

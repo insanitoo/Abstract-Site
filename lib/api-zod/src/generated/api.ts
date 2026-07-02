@@ -38,6 +38,9 @@ export const ListObrasResponseItem = zod.object({
   "imagemUrl2": zod.string().nullish(),
   "imagemUrl3": zod.string().nullish(),
   "imagemUrl4": zod.string().nullish(),
+  "destaque": zod.boolean().optional(),
+  "ordem": zod.number().nullish(),
+  "desconto": zod.number().nullish(),
   "dataCriacao": zod.string()
 })
 export const ListObrasResponse = zod.array(ListObrasResponseItem)
@@ -57,7 +60,10 @@ export const CreateObraBody = zod.object({
   "imagemUrl": zod.string().optional(),
   "imagemUrl2": zod.string().optional(),
   "imagemUrl3": zod.string().optional(),
-  "imagemUrl4": zod.string().optional()
+  "imagemUrl4": zod.string().optional(),
+  "destaque": zod.boolean().optional(),
+  "ordem": zod.number().optional(),
+  "desconto": zod.number().optional()
 })
 
 
@@ -81,6 +87,9 @@ export const GetObraResponse = zod.object({
   "imagemUrl2": zod.string().nullish(),
   "imagemUrl3": zod.string().nullish(),
   "imagemUrl4": zod.string().nullish(),
+  "destaque": zod.boolean().optional(),
+  "ordem": zod.number().nullish(),
+  "desconto": zod.number().nullish(),
   "dataCriacao": zod.string()
 })
 
@@ -103,7 +112,10 @@ export const UpdateObraBody = zod.object({
   "imagemUrl": zod.string().optional(),
   "imagemUrl2": zod.string().optional(),
   "imagemUrl3": zod.string().optional(),
-  "imagemUrl4": zod.string().optional()
+  "imagemUrl4": zod.string().optional(),
+  "destaque": zod.boolean().optional(),
+  "ordem": zod.number().optional(),
+  "desconto": zod.number().optional()
 })
 
 export const UpdateObraResponse = zod.object({
@@ -119,6 +131,9 @@ export const UpdateObraResponse = zod.object({
   "imagemUrl2": zod.string().nullish(),
   "imagemUrl3": zod.string().nullish(),
   "imagemUrl4": zod.string().nullish(),
+  "destaque": zod.boolean().optional(),
+  "ordem": zod.number().nullish(),
+  "desconto": zod.number().nullish(),
   "dataCriacao": zod.string()
 })
 

@@ -90,6 +90,20 @@ router.patch("/obras/:id", async (req, res): Promise<void> => {
   res.json(serializeObra(obra));
 });
 
+router.post("/obras/reordenar", async (req, res): Promise<void> => {
+  const items: { id: number; ordem: number }[] = req.body;
+  if (!Array.isArray(items)) {
+    res.status(400).json({ error: "Expected array of {id, ordem}" });
+    return;
+  }
+  await Promise.all(
+    items.map(({ id, ordem }) =>
+      db.update(obrasTable).set({ ordem }).where(eq(obrasTable.id, id))
+    )
+  );
+  res.json({ ok: true });
+});
+
 router.delete("/obras/:id", async (req, res): Promise<void> => {
   const params = DeleteObraParams.safeParse(req.params);
   if (!params.success) {
@@ -120,6 +134,9 @@ function serializeObra(obra: typeof obrasTable.$inferSelect) {
     imagemUrl2: obra.imagemUrl2,
     imagemUrl3: obra.imagemUrl3,
     imagemUrl4: obra.imagemUrl4,
+    destaque: obra.destaque,
+    ordem: obra.ordem,
+    desconto: obra.desconto,
     dataCriacao: obra.dataCriacao instanceof Date ? obra.dataCriacao.toISOString() : obra.dataCriacao,
   };
 }
