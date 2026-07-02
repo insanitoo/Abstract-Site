@@ -197,7 +197,7 @@ export default function Galeria() {
         {/* Header */}
         <div className="bg-white border-b border-border py-14 px-6">
           <div className="max-w-6xl mx-auto">
-            <p className="text-xs tracking-[0.3em] uppercase text-primary mb-2">Colecção</p>
+            <p className="text-xs tracking-[0.3em] uppercase text-primary mb-2"></p>
             <h1 className="font-serif text-4xl md:text-5xl text-foreground">Galeria</h1>
           </div>
         </div>

@@ -4,7 +4,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Calendar, MapPin, ArrowRight } from "lucide-react";
-import heroPng from "@assets/hero.png";
+import heroPng from "@assets/Hero.png";
 import artistPng from "@assets/artista.png";
 
 
@@ -54,19 +54,19 @@ export default function Home() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative h-[60vh] md:h-[88vh] min-h-[420px] flex items-end pb-16 md:pb-24">
+      <section className="relative h-[90vh] md:h-[150vh] min-h-[520px] flex items-end pb-8 md:pb-24">
         <div
           className="absolute inset-0 bg-cover bg-top"
           style={{ backgroundImage: `url(${heroPng})` }}
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
         <div className="relative z-10 max-w-6xl mx-auto px-6 w-full">
-          <p className="text-white/70 text-xs tracking-[0.3em] uppercase mb-4">O Abstrato Doido</p>
-          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white leading-tight max-w-2xl drop-shadow-lg">
-            A cor que transcende barreiras
+          
+          <h1 className="font-serif text-1xl md:text-3xl lg:text-4xl text-white leading-tight max-w-2xl drop-shadow-lg">
+            Algumas pessoas compram quadros
           </h1>
-          <p className="text-white/90 text-lg mt-4 max-w-md drop-shadow">
-            Obras únicas que tocam a alma
+          <p className="text-white/90 text-sm mt-4 max-w-md drop-shadow">
+            Outras levam perguntas para casa.
           </p>
           <Link
             href="/galeria"
@@ -83,19 +83,14 @@ export default function Home() {
       <section className="py-20 bg-[hsl(40,43%,96%)]">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="order-2 md:order-1">
-            <p className="text-xs tracking-[0.3em] uppercase text-primary mb-6">Sobre o Artista</p>
-            <p className="text-muted-foreground leading-relaxed text-base mb-4">
-            Um miúdo de 19 anos que começou a pintar por curiosidade... Hoje
-            vive da própria arte.            </p>
-            <p className="text-muted-foreground leading-relaxed text-base">
-            Não sei bem como aconteceu, mas sei que não aconteceu sozinho.
-            </p>
+            <p className="text-muted-foreground leading-relaxed text-base mb-1">
+              Dioleny Intya, artista plástico angolano reconhecido pela UNAP, e amplamente conhecido como “O Abstrato Doido".            </p>
             <Link
               href="/sobre"
               data-testid="button-saber-mais"
               className="inline-flex items-center gap-2 mt-8 text-sm tracking-widest uppercase text-primary border-b border-primary pb-0.5 hover:opacity-70 transition-opacity"
             >
-              Saber mais
+              Sobre o artista
               <ArrowRight size={14} />
             </Link>
           </div>
@@ -115,7 +110,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-end justify-between mb-10">
             <div>
-              <p className="text-xs tracking-[0.3em] uppercase text-primary mb-2">Colecção</p>
+              
               <h2 className="font-serif text-3xl text-foreground">Destaques da Galeria</h2>
             </div>
             <Link

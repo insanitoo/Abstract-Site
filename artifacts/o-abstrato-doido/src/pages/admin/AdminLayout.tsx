@@ -55,8 +55,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     <>
       <div className="px-6 py-6 border-b border-white/10 flex items-center justify-between">
         <div>
-          <p className="font-serif text-base text-white">O Abstrato Doido</p>
-          <p className="text-xs text-white/50 mt-0.5 tracking-widest uppercase">Admin</p>
+          <p className="font-serif text-base text-white">Intya Space</p>
+          <p className="text-xs text-white/50 mt-0.5 tracking-widest uppercase">Painel Administrativo</p>
         </div>
         <button
           onClick={() => setSidebarOpen(false)}

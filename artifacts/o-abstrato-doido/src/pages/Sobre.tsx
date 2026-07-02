@@ -37,15 +37,16 @@ export default function Sobre() {
                 "
               </p>
               <p className="font-serif text-2xl md:text-3xl text-foreground leading-snug mb-8">
-                Bem-vindo ao meu espaço de expressão. Crio para transcender
-                barreiras.
+                Bem-vindo ao meu espaço de expressão.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-6">
-                Um miúdo de 19 anos que começou a pintar por curiosidade... Hoje
-                vive da própria arte.
+                Dioleny Intya, 23 anos, Angola.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Não sei bem como aconteceu, mas sei que não aconteceu sozinho.
+                Artista plástico abstrato. Não pinto paisagens bonitas nem
+                coisas fáceis de entender à primeira vista. Pinto relações
+                humanas, aquelas que não se explicam bem, mas
+                também não se calam.
               </p>
             </div>
           </div>
@@ -55,23 +56,43 @@ export default function Sobre() {
         <section className="py-20 bg-white">
           <div className="max-w-3xl mx-auto px-6">
             <h2 className="font-serif text-3xl text-primary mb-6">
-              A Minha História
+              Manifesto Artístico
             </h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Comecei a pintar na adolescência, movido pela necessidade de
-              expressar aquilo que as palavras não alcançavam. Cresci a observar
-              as cores das ruas, das pessoas, das memórias — e percebi que a
-              arte abstrata era o único idioma suficientemente vasto para tudo
-              isso.
+              Eu não pinto porque entendi a vida. Pinto porque claramente não entendi.
+              A verdade é simples: somos imperfeitos. E não é um defeito do sistema. É o
+              sistema.
+              Enquanto toda gente anda numa corrida meio desesperada para “evoluir”,
+              “crescer”, “se tornar melhor”… eu olho para isso e penso: melhor em relação a quê
+              exatamente?
             </p>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Ao longo dos anos, expus em galerias em Angola, Portugal e Brasil,
-              participei em residências artísticas e desenvolvi uma linguagem
-              visual própria — densa, cromática, e profundamente emocional.
+              O meu trabalho nasce desse incômodo.
+              De um lado, tens a Bíblia a falar de sabedoria, disciplina, propósito. Do outro, tens
+              a vida real: gente cansada, atrasada, confusa, a tentar lembrar se já lavou os
+              pratos ou se esqueceu o pão.
+              E, curiosamente, tudo isso coexistindo sem pedir autorização.
+              Eu pinto esse meio.
+              Esse espaço onde a pessoa quer ser extraordinária… mas ainda está a tentar
+              acordar antes das 9h.
+              Onde se fala de propósito… mas também de preguiça.
+              De espiritualidade… mas também de distração.
+              Nada disso é contradição. É só humano.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Hoje, trabalho a partir do meu atelier em Luanda, criando obras de
-              grande formato que desafiam o olhar e convidam à contemplação.
+              Uso a abstração porque seria ridículo tentar explicar isso de forma direta. Não
+              cabe. Escapa. Mistura.
+              As cores, as formas, as camadas — tudo ali é meio desorganizado de propósito.
+              Porque a vida também é.
+              E tem mais: eu gosto de ironizar isso tudo.
+              Não como quem desrespeita… mas como quem percebe que levar tudo
+              demasiado a sério também é uma forma de ilusão.
+              No fundo, o meu trabalho não tenta corrigir nada.
+              Só olha e diz:
+              “é isso mesmo… e já chega.”
+              Se alguém vê beleza nisso, ótimo.
+              Se vê confusão, melhor ainda.
+              Porque provavelmente é a mesma coisa.
             </p>
           </div>
         </section>
@@ -182,9 +203,7 @@ export default function Sobre() {
         {/* Bastidores */}
         <section className="py-20 bg-[hsl(40,43%,96%)]">
           <div className="max-w-6xl mx-auto px-6">
-            <h2 className="font-serif text-3xl text-foreground mb-10 text-center">
-              Bastidores do Atelier
-            </h2>
+            
             <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
               <img
                 src={artistPng}

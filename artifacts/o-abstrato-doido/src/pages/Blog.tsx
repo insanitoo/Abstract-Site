@@ -23,7 +23,7 @@ export default function Blog() {
         {/* Header */}
         <div className="bg-white border-b border-border py-14 px-6">
           <div className="max-w-6xl mx-auto">
-            <p className="text-xs tracking-[0.3em] uppercase text-primary mb-2">Reflexões</p>
+            <p className="text-xs tracking-[0.3em] uppercase text-primary mb-2">Pense Comigo</p>
             <h1 className="font-serif text-4xl md:text-5xl text-foreground">Opiniões & Reflexões</h1>
           </div>
         </div>

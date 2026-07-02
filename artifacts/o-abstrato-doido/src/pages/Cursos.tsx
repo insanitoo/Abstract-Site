@@ -103,10 +103,8 @@ function CursoModal({ curso, onClose }: { curso: Curso; onClose: () => void }) {
           /* Ecrã de desbloqueio */
           <div className="flex-1 flex flex-col items-center justify-center gap-6 p-8">
             <div className="text-center">
-              <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Lock size={24} className="text-primary" />
-              </div>
-              <h3 className="font-serif text-lg text-foreground mb-1">Conteúdo protegido</h3>
+              
+              
               <p className="text-sm text-muted-foreground">Insere a chave de acesso para ver as aulas</p>
             </div>
             <div className="w-full max-w-xs flex flex-col gap-3">
