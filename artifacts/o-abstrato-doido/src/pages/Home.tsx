@@ -54,7 +54,7 @@ export default function Home() {
       <Navbar />
 
       {/* Hero */}
-      <section className="relative h-[90vh] md:h-[150vh] min-h-[520px] flex items-end pb-8 md:pb-24">
+      <section className="relative h-[77vh] md:h-[130vh] min-h-[420px] flex items-end pb-80 md:pb-24">
         <div
           className="absolute inset-0 bg-cover bg-top"
           style={{ backgroundImage: `url(${heroPng})` }}
@@ -62,16 +62,16 @@ export default function Home() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/10" />
         <div className="relative z-10 max-w-6xl mx-auto px-6 w-full">
           
-          <h1 className="font-serif text-1xl md:text-3xl lg:text-4xl text-white leading-tight max-w-2xl drop-shadow-lg">
+          <h1 className="font-serif text-4xl md:text-6xl lg:text-7xl text-white leading-tight max-w-2xl drop-shadow-lg">
             Algumas pessoas compram quadros
           </h1>
-          <p className="text-white/90 text-sm mt-4 max-w-md drop-shadow">
+          <p className="text-white/90 text-sm mt-3 max-w-md drop-shadow">
             Outras levam perguntas para casa.
           </p>
           <Link
             href="/galeria"
             data-testid="button-ver-galeria"
-            className="inline-flex items-center gap-2 mt-8 px-8 py-3 bg-primary text-white text-sm tracking-widest uppercase hover:bg-primary/90 transition-colors"
+            className="inline-flex items-center gap-2 mt-20 px-8 py-3 bg-primary text-white text-sm tracking-widest uppercase hover:bg-primary/90 transition-colors"
           >
             Ver Galeria
             <ArrowRight size={16} />
