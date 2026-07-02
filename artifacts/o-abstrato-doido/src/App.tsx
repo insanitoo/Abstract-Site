@@ -24,9 +24,9 @@ const queryClient = new QueryClient({
     queries: {
       retry: 1,
       refetchOnWindowFocus: false,
-      refetchOnMount: false,
+      refetchOnMount: true,
       refetchOnReconnect: false,
-      staleTime: 10 * 60 * 1000,
+      staleTime: 0,
     },
   },
 });

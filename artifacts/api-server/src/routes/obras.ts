@@ -1,6 +1,6 @@
 import { Router, type IRouter } from "express";
 import { db, obrasTable } from "@workspace/db";
-import { eq, desc, sql } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import {
   ListObrasQueryParams,
   CreateObraBody,
@@ -19,10 +19,10 @@ router.get("/obras", async (req, res): Promise<void> => {
     return;
   }
 
-  let obras = await db
-    .select()
-    .from(obrasTable)
-  .orderBy(sql`obras.ordem ASC NULLS LAST`, desc(obrasTable.dataCriacao));
+  let obras = await db.select().from(obrasTable);
+
+  // Ordem definida pelo admin (sempre presente)
+  obras.sort((a, b) => (a.ordem ?? 0) - (b.ordem ?? 0));
 
   if (query.data.status) {
     obras = obras.filter((o) => o.status === query.data.status);
@@ -46,6 +46,20 @@ router.post("/obras", async (req, res): Promise<void> => {
 
   const [obra] = await db.insert(obrasTable).values(parsed.data).returning();
   res.status(201).json(serializeObra(obra));
+});
+
+router.post("/obras/reordenar", async (req, res): Promise<void> => {
+  const items: { id: number; ordem: number }[] = req.body;
+  if (!Array.isArray(items)) {
+    res.status(400).json({ error: "Expected array of {id, ordem}" });
+    return;
+  }
+  await Promise.all(
+    items.map(({ id, ordem }) =>
+      db.update(obrasTable).set({ ordem }).where(eq(obrasTable.id, id))
+    )
+  );
+  res.json({ ok: true });
 });
 
 router.get("/obras/:id", async (req, res): Promise<void> => {
@@ -89,20 +103,6 @@ router.patch("/obras/:id", async (req, res): Promise<void> => {
   }
 
   res.json(serializeObra(obra));
-});
-
-router.post("/obras/reordenar", async (req, res): Promise<void> => {
-  const items: { id: number; ordem: number }[] = req.body;
-  if (!Array.isArray(items)) {
-    res.status(400).json({ error: "Expected array of {id, ordem}" });
-    return;
-  }
-  await Promise.all(
-    items.map(({ id, ordem }) =>
-      db.update(obrasTable).set({ ordem }).where(eq(obrasTable.id, id))
-    )
-  );
-  res.json({ ok: true });
 });
 
 router.delete("/obras/:id", async (req, res): Promise<void> => {
